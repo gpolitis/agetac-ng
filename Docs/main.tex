@@ -1,4 +1,4 @@
-\title {Agetac-ng: Next generation of the Agetac project}
+\title {Agetac-ng: Next generation Agetac Server}
 
 \author{Georgios Politis}
 \date{\today}
@@ -37,19 +37,49 @@
 \maketitle
 
 \begin{abstract}
+During the two semesters we have developed Agetac, acronym for \emph{Aide à la gestion tactique}, a system to help. This project identifies and provides solutions to some of the problems of the current implementation.
 \end{abstract}
 
+\thispagestyle{empty} % cover page.
+\newpage
+\pagenumbering{roman} % latin numerals for contents and introduction.
+
 \tableofcontents
+\newpage
 
 \section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+This work is the natural continuation of the experimental branches \footnote{https://github.com/Agetac/Client/tree/experimental} \footnote{https://github.com/Agetac/Server/tree/experimental} \footnote{https://github.com/Agetac/Model/tree/experimental} in github. It tries to give my vision of the agetac project not being able to others due to my limited marketing skills. I think this is a best approach than the one existing.
+
+The experimental branches were the first steps towards fixing various problems with the current architecture. We came to the realisation that rewritting the server from scratch would be easier than trying to fix the original version.
+
+Some of the proposed changes here might have been backported to the original solution to help us out of expected deadends.
 
 We have something that somewhat works, but we can do better. We have a lot of code duplication (server resources), a lot of code that is inefficient (load all interventions to find new next id) and a lot of code that is reinvented and duplicated (json).
 
+Lead to desperate commit messages or comments.
+
+\newpage
+\part{Initial Design}
+
+\pagenumbering{arabic} % turn to normal numbering.
+
 \section{The Communication Protocol}
 
-\subsection{Serialisation: Sending data over the wire} 
+\subsection{Operation Contracts: Defining ServerResource Interfaces} 
 
-Next, we have too much code that is redundant. We handle manually the serialisation/deserialisation of the trasnfered objects to and from JSON. This manual conversion, polutes the code base and adds too much boilerplate code. As a better idea we could have used Jackson, or Gson. Inspired by the quality and variety of XML tooling available for the Java platform (StAX, JAXB, etc.), the Jackson is a multi-purpose Java library for processing JSON data format. Jackson aims to be the best possible combination of fast, correct, lightweight, and ergonomic for developers.
+First, repetition indicates a failure to use appropriate abstraction mechanisms in the program, such as methods, functions, subclasses, and generic types. As a result, the code is longer than it should be, and, as you can surely appreciate, it will contain more bugs. In addition, repeated instances of code hinder maintenance because they force you to manually track and modify each separate repeating fragment. \cite{Spinellis:2006:CQO:1197266}
+
+With a quick glimpse of the code, the experienced eye will notice a tremendous amound of code duplication. Our \emph{ServerResource} classes do the same thing, over and over again.
+
+\subsection{Serialisation: Exploiting the Restlet Framework Extensions} 
+
+Serialisation: Sending the data over the wire
+
+Next, we have too much code that is redundant. We handle manually the serialisation/deserialisation of the trasnfered objects to and from JSON. This manual conversion, polutes the code base and adds too much boilerplate code. 
+
+\paragraph{A first better approach} is to use Jackson, or Gson. Inspired by the quality and variety of XML tooling available for the Java platform (StAX, JAXB, etc.), the Jackson is a multi-purpose Java library for processing JSON data format. Jackson aims to be the best possible combination of fast, correct, lightweight, and ergonomic for developers.
 
 Serialisation an object, using either library, should be as simple as doing something like this:
 
@@ -68,21 +98,27 @@ mapper.writeValue(new File("user-modified.json"), user);
 
 \end{lstlisting}
 
-But with the \emph{Automatic Conversion} feature of the Restlet framework, even this is an overkill.
+\paragraph{The best and most transparent approach} is to use the \emph{Automatic Conversion} extension of the Restlet framework. Once operation contracts have been defined, one can use them on the client side to consume it:
 
-\subsection{Operation Contracts: Defining ServerResource Interfaces} First, repetition indicates a failure to use appropriate abstraction mechanisms in the program, such as methods, functions, subclasses, and generic types. As a result, the code is longer than it should be, and, as you can surely appreciate, it will contain more bugs. In addition, repeated instances of code hinder maintenance because they force you to manually track and modify each separate repeating fragment. \cite{Spinellis:2006:CQO:1197266}
+\begin{lstlisting}
 
-With a quick glimpse of the code, the experienced eye will notice a tremendous amound of code duplication. Our \emph{ServerResource} classes do the same thing, over and over again.
+ClientResource clientResource = new ClientResource("someurl");
+try {
+VehicleDemandsResource vehicleDemandsResource = clientResource.wrap(VehicleDemandsResource.class);
+return  vehicleDemandsResource.retrieve();
+} finally {
+    clientResource.release();
+}
+
+\end{lstlisting}
+
+In this case, automatic conversion is handled for us by the Restlet engine.
 
 \subsection{Data Contracts: Using DTOs}
 
 In general, when it comes to sending serialized ORM POJOs down the wire, I think it's a risky practice, because you're likely to pull in a lot more of the reachable object tree than you bargained for unless you're careful. A better approach might be to use DTOs based on ProtocolBuffers.
 
-\subsection{Full-duplex Communication: The Pub/Sub Pattern}
-
-* The publisher/subscriber pattern.
-
-\section{Persistency}
+\section{Data Access Layer}
 
 \subsection{Data Access Objets (DAOs)}
 
@@ -107,17 +143,59 @@ In Common we put the domain classes and
 
 % http://timepedia.blogspot.fr/2009/04/google-appengine-and-gwt-now-marriage.html
 
+\newpage
+
 \section{Miscelaneous}
 
-\subsection{Business Layer: The missing piece}
+\subsection{Client API: A usable alternative}
+
+Right now we have 3 classes that work together to provide access to the server. Typically, We propose a single class to the Client for access to the server resources. \emph{AgetacClient}
+
+\subsection{Tests}
+
+\part{Looking Further}
+
+\section{Business Layer}
 
 The business layer is missing all together.
 
 We also have mixed deserialisation with validation, for example, we require the uniqueId to be present during deserialisation, while that should have been in a separate step.
 
-\subsection{Client API: A usable alternative}
+\section{Full-duplex Communication}
 
-Right now we have 3 classes that work together to provide access to the server. Typically, We propose a single class to the Client for access to the server resources. \emph{AgetacClient}
+\subsection{The Pub/Sub Pattern}
+
+Publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers. Published messages are characterized into classes, without knowledge of what, if any, subscribers there may be. Subscribers express interest in one or more classes, and only receive messages that are of interest, without knowledge of what, if any, publishers there are.
+
+\subsection{Hacking HTTP: Polling, Long-Polling, and Streaming}
+
+% http://en.wikipedia.org/wiki/Push_technology
+% http://code.google.com/p/xeerkat/
+% http://guide.couchdb.org/draft/notifications.html
+% http://restlet-code.1609877.n2.nabble.com/Push-data-from-server-using-a-live-HTTP-connection-td2906563.html
+% http://websocket.org/quantum.html
+
+Normally when a browser visits a web page, an HTTP request is sent to the web server that hosts that page.  The web server acknowledges this request and sends back the response.  In many cases—for example, for stock prices, news reports, ticket sales, traffic patterns, medical device readings, and so on—the response could be stale by the time the browser renders the page. If you want to get the most up-to-date \emph{real-time} information, you can constantly refresh that page manually, but that's obviously not a great solution.
+
+Current attempts to provide real-time web applications largely revolve around polling and other server-side push technologies, the most notable of which is Comet, which delays the completion of an HTTP response to deliver messages to the client. Comet-based push is generally implemented in JavaScript and uses connection strategies such as long-polling or streaming.
+
+With polling, the browser sends HTTP requests at regular intervals and immediately receives a response.  This technique was the first attempt for the browser to deliver real-time information. Obviously, this is a good solution if the exact interval of message delivery is known, because you can synchronize the client request to occur only when information is available on the server. However, real-time data is often not that predictable, making unnecessary requests inevitable and as a result, many connections are opened and closed needlessly in low-message-rate situations.
+
+With long-polling, the browser sends a request to the server and the server keeps the request open for a set period. If a notification is received within that period, a response containing the message is sent to the client. If a notification is not received within the set time period, the server sends a response to terminate the open request. It is important to understand, however, that when you have a high message volume, long-polling does not provide any substantial performance improvements over traditional polling.  In fact, it could be worse, because the long-polling might spin out of control into an unthrottled, continuous loop of immediate polls.
+
+With streaming, the browser sends a complete request, but the server sends and maintains an open response that is continuously updated and kept open indefinitely (or for a set period of time). The response is then updated whenever a message is ready to be sent, but the server never signals to complete the response, thus keeping the connection open to deliver future messages. However, since streaming is still encapsulated in HTTP, intervening firewalls and proxy servers may choose to buffer the response, increasing the latency of the message delivery. Therefore, many streaming Comet solutions fall back to long-polling in case a buffering proxy server is detected. Alternatively, TLS (SSL) connections can be used to shield the response from being buffered, but in that case the setup and tear down of each connection taxes the available server resources more heavily.
+
+Ultimately, all of these methods for providing real-time data involve HTTP request and response headers, which contain lots of additional, unnecessary header data and introduce latency. On top of that, full-duplex connectivity requires more than just the downstream connection from server to client. In an effort to simulate full-duplex communication over half-duplex HTTP, many of today's solutions use two connections: one for the downstream and one for the upstream. The maintenance and coordination of these two connections introduces significant overhead in terms of resource consumption and adds lots of complexity. Simply put, HTTP wasn't designed for real-time, full-duplex communication as you can see in the following figure, which shows the complexities associated with building a Comet web application that displays real-time data from a back-end data source using a publish/subscribe model over half-duplex HTTP.
+
+\subsection{xeercat: A P2P computing framework over XMPP}
+
+Xeerkat is a P2P computing framework that utilizes XMPP as a communication protocol. The basic model is that of a agent computing where an agent runs a number of services that available to peers. Each service is available over both HTTP and XMPP.
+
+A service is a rest-style service that can communicate using any web-oriented protocol and implemented as a Restlet Application. This allows reuse of any Restlet implementation as a agent service.
+
+An agent-oriented set of services are provided throught Restlet context to facilitate building services.
+
+\newpage
 
 \section*{Conclusion} 
 
