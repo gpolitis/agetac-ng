@@ -1,0 +1,127 @@
+\title {Agetac-ng: Next generation of the Agetac project}
+
+\author{Georgios Politis}
+\date{\today}
+
+\documentclass[12pt]{scrartcl}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lightpurple}{rgb}{0.8,0.8,1}
+\definecolor{red}{rgb}{0.6,0,0}
+
+\lstset {
+  basicstyle=\ttfamily\footnotesize\color{black},
+  extendedchars=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  frame=single,
+  title=\lstname,
+  breaklines=true,
+  captionpos=b,
+  rulecolor=\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{red},
+  morecomment=[s][\color{red}]{/*}{*/},
+  % stringstyle=\color{mauve},
+  backgroundcolor=\color{lightpurple},
+  showspaces=false,
+  showstringspaces=false
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\tableofcontents
+
+\section*{Introduction}
+
+We have something that somewhat works, but we can do better. We have a lot of code duplication (server resources), a lot of code that is inefficient (load all interventions to find new next id) and a lot of code that is reinvented and duplicated (json).
+
+\section{The Communication Protocol}
+
+\subsection{Serialisation: Sending data over the wire} 
+
+Next, we have too much code that is redundant. We handle manually the serialisation/deserialisation of the trasnfered objects to and from JSON. This manual conversion, polutes the code base and adds too much boilerplate code. As a better idea we could have used Jackson, or Gson. Inspired by the quality and variety of XML tooling available for the Java platform (StAX, JAXB, etc.), the Jackson is a multi-purpose Java library for processing JSON data format. Jackson aims to be the best possible combination of fast, correct, lightweight, and ergonomic for developers.
+
+Serialisation an object, using either library, should be as simple as doing something like this:
+
+\begin{lstlisting}
+
+ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+User user = mapper.readValue(new File("user.json"), User.class);
+
+\end{lstlisting}
+
+Marsalling back to JSON is similarly straightforward:
+
+\begin{lstlisting}
+
+mapper.writeValue(new File("user-modified.json"), user);
+
+\end{lstlisting}
+
+But with the \emph{Automatic Conversion} feature of the Restlet framework, even this is an overkill.
+
+\subsection{Operation Contracts: Defining ServerResource Interfaces} First, repetition indicates a failure to use appropriate abstraction mechanisms in the program, such as methods, functions, subclasses, and generic types. As a result, the code is longer than it should be, and, as you can surely appreciate, it will contain more bugs. In addition, repeated instances of code hinder maintenance because they force you to manually track and modify each separate repeating fragment. \cite{Spinellis:2006:CQO:1197266}
+
+With a quick glimpse of the code, the experienced eye will notice a tremendous amound of code duplication. Our \emph{ServerResource} classes do the same thing, over and over again.
+
+\subsection{Data Contracts: Using DTOs}
+
+In general, when it comes to sending serialized ORM POJOs down the wire, I think it's a risky practice, because you're likely to pull in a lot more of the reachable object tree than you bargained for unless you're careful. A better approach might be to use DTOs based on ProtocolBuffers.
+
+\subsection{Full-duplex Communication: The Pub/Sub Pattern}
+
+* The publisher/subscriber pattern.
+
+\section{Persistency}
+
+\subsection{Data Access Objets (DAOs)}
+
+We have a form of DAOs in the
+
+\subsection{Persistency (ORM)}
+
+Persistency is important for most real world business-oriented applications. The old implementation needs major refactoring to add persistency.
+
+Vehicules sont stored in two places, in as intervention.vehicules and vehicules.
+
+unique id managment
+
+% http://stackoverflow.com/questions/1378413/why-put-a-dao-layer-over-a-persistence-layer-like-jdo-or-hibernate
+* DAO Pattern and the Persistency layer.
+
+Lets see how one can create a simple client/server application based on Restlet in a few easy steps.
+
+We separate our project in 3 modules, Common stuff, the Client and the Server.
+
+In Common we put the domain classes and
+
+% http://timepedia.blogspot.fr/2009/04/google-appengine-and-gwt-now-marriage.html
+
+\section{Miscelaneous}
+
+\subsection{Business Layer: The missing piece}
+
+The business layer is missing all together.
+
+We also have mixed deserialisation with validation, for example, we require the uniqueId to be present during deserialisation, while that should have been in a separate step.
+
+\subsection{Client API: A usable alternative}
+
+Right now we have 3 classes that work together to provide access to the server. Typically, We propose a single class to the Client for access to the server resources. \emph{AgetacClient}
+
+\section*{Conclusion} 
+
+\bibliographystyle{plain}
+\bibliography{local}
+
+\end{document}
