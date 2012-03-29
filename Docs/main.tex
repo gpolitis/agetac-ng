@@ -37,7 +37,7 @@
 \maketitle
 
 \begin{abstract}
-During the two semesters we have developed Agetac, acronym for \emph{Aide à la gestion tactique}, a system to help. This project identifies and provides solutions to some of the problems of the current implementation.
+During the academic year 2011-2012 at ISTIC we have developed Agetac: \emph{Aide à la gestion tactique}, a tactical management support system. This project is an evolved version of the original system that provides a better implementation in a number of ways. Also, it considers some future aspects like full-duplex communication and a business layer.
 \end{abstract}
 
 \thispagestyle{empty} % cover page.
@@ -50,15 +50,21 @@ During the two semesters we have developed Agetac, acronym for \emph{Aide à la 
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-This work is the natural continuation of the experimental branches \footnote{https://github.com/Agetac/Client/tree/experimental} \footnote{https://github.com/Agetac/Server/tree/experimental} \footnote{https://github.com/Agetac/Model/tree/experimental} in github. It tries to give my vision of the agetac project not being able to others due to my limited marketing skills. I think this is a best approach than the one existing.
+This work is the natural continuation of the experimental branches \footnote{https://github.com/Agetac/Client/tree/experimental} \footnote{https://github.com/Agetac/Server/tree/experimental} \footnote{https://github.com/Agetac/Model/tree/experimental} in github. It tries to materialize some of my thoughts about the agetac project.
 
-The experimental branches were the first steps towards fixing various problems with the current architecture. We came to the realisation that rewritting the server from scratch would be easier than trying to fix the original version.
+% not being able to communicate to others due to my limited marketing skills. I think this is a best approach than the one existing.
 
-Some of the proposed changes here might have been backported to the original solution to help us out of expected deadends.
+The experimental branches were the first steps towards fixing various problems with the current architecture. I came to the realisation that rewritting the server and the communication API from scratch would be easier than trying to fix the original version.
 
-We have something that somewhat works, but we can do better. We have a lot of code duplication (server resources), a lot of code that is inefficient (load all interventions to find new next id) and a lot of code that is reinvented and duplicated (json).
+% Some of the proposed changes here might have been backported to the original solution to help us out of expected deadends.
 
-Lead to desperate commit messages or comments.
+% We have something that somewhat works, but we can do better. We have a lot of code duplication (server resources), a lot of code that is inefficient (load all interventions to find new next id) and a lot of code that is reinvented and duplicated (json).
+
+% Lead to desperate commit messages or comments.
+
+First, repetition indicates a failure to use appropriate abstraction mechanisms in the program, such as methods, functions, subclasses, and generic types. As a result, the code is longer than it should be, and, as you can surely appreciate, it will contain more bugs. In addition, repeated instances of code hinder maintenance because they force you to manually track and modify each separate repeating fragment. \cite{Spinellis:2006:CQO:1197266}
+
+With a quick glimpse of the code, the experienced eye will notice a tremendous amound of code duplication. Our \emph{ServerResource} classes do the same thing, over and over again.
 
 \newpage
 \part{Initial Design}
@@ -67,26 +73,28 @@ Lead to desperate commit messages or comments.
 
 \section{The Communication Protocol}
 
-\subsection{Operation Contracts: Defining ServerResource Interfaces} 
+\subsection{Operation and Data Contracts: They matter}
 
-First, repetition indicates a failure to use appropriate abstraction mechanisms in the program, such as methods, functions, subclasses, and generic types. As a result, the code is longer than it should be, and, as you can surely appreciate, it will contain more bugs. In addition, repeated instances of code hinder maintenance because they force you to manually track and modify each separate repeating fragment. \cite{Spinellis:2006:CQO:1197266}
-
-With a quick glimpse of the code, the experienced eye will notice a tremendous amound of code duplication. Our \emph{ServerResource} classes do the same thing, over and over again.
+\begin{itemize}
+\item Definition of ServerResource interfaces.
+\item Shared with the client, necessary for the automatic conversion step.
+\item In general, when it comes to sending serialized ORM POJOs down the wire, I think it's a risky practice, because we're likely to pull in a lot more of the reachable object tree than you bargained for unless we're careful. A better approach might be to use DTOs (possibly based on ProtocolBuffers).
+\end{itemize}
 
 \subsection{Serialisation: Exploiting the Restlet Framework Extensions} 
 
-Serialisation: Sending the data over the wire
+%Serialisation: Sending the data over the wire
 
-Next, we have too much code that is redundant. We handle manually the serialisation/deserialisation of the trasnfered objects to and from JSON. This manual conversion, polutes the code base and adds too much boilerplate code. 
+We have too much code that is redundant. We handle manually the serialisation/deserialisation of the trasnfered objects to and from JSON. This manual conversion, polutes the code base and adds too much boilerplate code. 
 
-\paragraph{A first better approach} is to use Jackson, or Gson. Inspired by the quality and variety of XML tooling available for the Java platform (StAX, JAXB, etc.), the Jackson is a multi-purpose Java library for processing JSON data format. Jackson aims to be the best possible combination of fast, correct, lightweight, and ergonomic for developers.
+\paragraph{A first better approach}, also faster, more lightweight and more ergonomic, is to use Jackson, or Gson. Inspired by the quality and variety of XML tooling available for the Java platform (StAX, JAXB, etc.), the Jackson is a multi-purpose Java library for processing JSON data format.
 
 Serialisation an object, using either library, should be as simple as doing something like this:
 
 \begin{lstlisting}
 
 ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-User user = mapper.readValue(new File("user.json"), User.class);
+Intervention inter = mapper.readValue(representation.getStream(), Intervention.class);
 
 \end{lstlisting}
 
@@ -114,32 +122,25 @@ return  vehicleDemandsResource.retrieve();
 
 In this case, automatic conversion is handled for us by the Restlet engine.
 
-\subsection{Data Contracts: Using DTOs}
-
-In general, when it comes to sending serialized ORM POJOs down the wire, I think it's a risky practice, because you're likely to pull in a lot more of the reachable object tree than you bargained for unless you're careful. A better approach might be to use DTOs based on ProtocolBuffers.
-
 \section{Data Access Layer}
 
 \subsection{Data Access Objets (DAOs)}
 
-We have a form of DAOs in the
+% We have a form of DAOs in the
+TODO
 
 \subsection{Persistency (ORM)}
 
-Persistency is important for most real world business-oriented applications. The old implementation needs major refactoring to add persistency.
+\begin{itemize}
+\item Persistency is important for most real world business-oriented applications. The old implementation needs major refactoring to add persistency.
 
-Vehicules sont stored in two places, in as intervention.vehicules and vehicules.
+\item In the original implementation Right now Vehicules are stored in two places, in as intervention.vehicules List and a vehicules concurrentMap...
 
-unique id managment
+\item Problematic unique id managment..
 
 % http://stackoverflow.com/questions/1378413/why-put-a-dao-layer-over-a-persistence-layer-like-jdo-or-hibernate
-* DAO Pattern and the Persistency layer.
-
-Lets see how one can create a simple client/server application based on Restlet in a few easy steps.
-
-We separate our project in 3 modules, Common stuff, the Client and the Server.
-
-In Common we put the domain classes and
+\item TODO Talk about DAO Pattern and the Persistency layer.
+\end{itemize}
 
 % http://timepedia.blogspot.fr/2009/04/google-appengine-and-gwt-now-marriage.html
 
@@ -149,9 +150,11 @@ In Common we put the domain classes and
 
 \subsection{Client API: A usable alternative}
 
-Right now we have 3 classes that work together to provide access to the server. Typically, We propose a single class to the Client for access to the server resources. \emph{AgetacClient}
+Right now we have a bunch of classes that work somehow together to provide access to the server (InterventionApi, ServerApi, ServerConnection, InterventionConnection..). Typically, we propose a single class to the Client for access to the server resources: \emph{AgetacClient}
 
 \subsection{Tests}
+
+TODO Tests should be meaningfull, there is a lot to say about tests, like code coverage, path coverage, combinatronics etc, but they should have a point..
 
 \part{Looking Further}
 
@@ -161,31 +164,35 @@ The business layer is missing all together.
 
 We also have mixed deserialisation with validation, for example, we require the uniqueId to be present during deserialisation, while that should have been in a separate step.
 
+Business layer for processing reinforcement requests.
+
 \section{Full-duplex Communication}
 
 \subsection{The Pub/Sub Pattern}
 
 Publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers. Published messages are characterized into classes, without knowledge of what, if any, subscribers there may be. Subscribers express interest in one or more classes, and only receive messages that are of interest, without knowledge of what, if any, publishers there are.
 
-\subsection{Hacking HTTP: Polling, Long-Polling, and Streaming}
+\subsection{Hacking HTTP: Polling, Long-Polling, and Streaming and Friends}
 
 % http://en.wikipedia.org/wiki/Push_technology
 % http://code.google.com/p/xeerkat/
 % http://guide.couchdb.org/draft/notifications.html
 % http://restlet-code.1609877.n2.nabble.com/Push-data-from-server-using-a-live-HTTP-connection-td2906563.html
 % http://websocket.org/quantum.html
-
-Normally when a browser visits a web page, an HTTP request is sent to the web server that hosts that page.  The web server acknowledges this request and sends back the response.  In many cases—for example, for stock prices, news reports, ticket sales, traffic patterns, medical device readings, and so on—the response could be stale by the time the browser renders the page. If you want to get the most up-to-date \emph{real-time} information, you can constantly refresh that page manually, but that's obviously not a great solution.
+% atmosphere and jersey and websockets
+% http://jfarcand.wordpress.com/2011/11/07/hitchiker-guide-to-the-atmosphere-framework-using-websocket-long-polling-and-http-streaming/
 
 Current attempts to provide real-time web applications largely revolve around polling and other server-side push technologies, the most notable of which is Comet, which delays the completion of an HTTP response to deliver messages to the client. Comet-based push is generally implemented in JavaScript and uses connection strategies such as long-polling or streaming.
 
-With polling, the browser sends HTTP requests at regular intervals and immediately receives a response.  This technique was the first attempt for the browser to deliver real-time information. Obviously, this is a good solution if the exact interval of message delivery is known, because you can synchronize the client request to occur only when information is available on the server. However, real-time data is often not that predictable, making unnecessary requests inevitable and as a result, many connections are opened and closed needlessly in low-message-rate situations.
+\paragraph{With polling}, the browser sends HTTP requests at regular intervals and immediately receives a response.  This technique was the first attempt for the browser to deliver real-time information. Obviously, this is a good solution if the exact interval of message delivery is known, because you can synchronize the client request to occur only when information is available on the server. However, real-time data is often not that predictable, making unnecessary requests inevitable and as a result, many connections are opened and closed needlessly in low-message-rate situations.
 
-With long-polling, the browser sends a request to the server and the server keeps the request open for a set period. If a notification is received within that period, a response containing the message is sent to the client. If a notification is not received within the set time period, the server sends a response to terminate the open request. It is important to understand, however, that when you have a high message volume, long-polling does not provide any substantial performance improvements over traditional polling.  In fact, it could be worse, because the long-polling might spin out of control into an unthrottled, continuous loop of immediate polls.
+\paragraph{With long-polling}, the browser sends a request to the server and the server keeps the request open for a set period. If a notification is received within that period, a response containing the message is sent to the client. If a notification is not received within the set time period, the server sends a response to terminate the open request. It is important to understand, however, that when you have a high message volume, long-polling does not provide any substantial performance improvements over traditional polling.  In fact, it could be worse, because the long-polling might spin out of control into an unthrottled, continuous loop of immediate polls.
 
-With streaming, the browser sends a complete request, but the server sends and maintains an open response that is continuously updated and kept open indefinitely (or for a set period of time). The response is then updated whenever a message is ready to be sent, but the server never signals to complete the response, thus keeping the connection open to deliver future messages. However, since streaming is still encapsulated in HTTP, intervening firewalls and proxy servers may choose to buffer the response, increasing the latency of the message delivery. Therefore, many streaming Comet solutions fall back to long-polling in case a buffering proxy server is detected. Alternatively, TLS (SSL) connections can be used to shield the response from being buffered, but in that case the setup and tear down of each connection taxes the available server resources more heavily.
+\paragraph{With streaming}, the browser sends a complete request, but the server sends and maintains an open response that is continuously updated and kept open indefinitely (or for a set period of time). The response is then updated whenever a message is ready to be sent, but the server never signals to complete the response, thus keeping the connection open to deliver future messages. However, since streaming is still encapsulated in HTTP, intervening firewalls and proxy servers may choose to buffer the response, increasing the latency of the message delivery. Therefore, many streaming Comet solutions fall back to long-polling in case a buffering proxy server is detected. Alternatively, TLS (SSL) connections can be used to shield the response from being buffered, but in that case the setup and tear down of each connection taxes the available server resources more heavily.
 
 Ultimately, all of these methods for providing real-time data involve HTTP request and response headers, which contain lots of additional, unnecessary header data and introduce latency. On top of that, full-duplex connectivity requires more than just the downstream connection from server to client. In an effort to simulate full-duplex communication over half-duplex HTTP, many of today's solutions use two connections: one for the downstream and one for the upstream. The maintenance and coordination of these two connections introduces significant overhead in terms of resource consumption and adds lots of complexity. Simply put, HTTP wasn't designed for real-time, full-duplex communication as you can see in the following figure, which shows the complexities associated with building a Comet web application that displays real-time data from a back-end data source using a publish/subscribe model over half-duplex HTTP.
+
+\subsection{WebSockets}
 
 \subsection{xeercat: A P2P computing framework over XMPP}
 
