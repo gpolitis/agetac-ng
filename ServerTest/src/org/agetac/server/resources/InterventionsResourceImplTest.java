@@ -2,7 +2,7 @@ package org.agetac.server.resources;
 
 import java.util.Collection;
 
-import org.agetac.common.dto.Intervention;
+import org.agetac.common.dto.InterventionDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -26,7 +26,7 @@ public class InterventionsResourceImplTest {
 		throws Exception {
 		InterventionsResourceImpl fixture = new InterventionsResourceImpl();
 
-		Collection<Intervention> result = fixture.retrieve();
+		Collection<InterventionDTO> result = fixture.retrieve();
 
 		assertNotNull(result);
 	}
@@ -43,7 +43,7 @@ public class InterventionsResourceImplTest {
 	public void setUp()
 		throws Exception {
 		InterventionResourceImpl fixture = new InterventionResourceImpl();
-		Intervention intervention = new Intervention();
+		InterventionDTO intervention = new InterventionDTO();
 
 		fixture.add(intervention);
 	}

@@ -2,7 +2,7 @@ package org.agetac.server.resources;
 
 import java.util.Collection;
 
-import org.agetac.common.dto.Source;
+import org.agetac.common.dto.SourceDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -26,7 +26,7 @@ public class SourcesResourceImplTest {
 		throws Exception {
 		SourcesResourceImpl fixture = new SourcesResourceImpl();
 
-		Collection<Source> result = fixture.retrieve();
+		Collection<SourceDTO> result = fixture.retrieve();
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
@@ -47,7 +47,7 @@ public class SourcesResourceImplTest {
 		throws Exception {
 		SourcesResourceImpl fixture = new SourcesResourceImpl();
 
-		Collection<Source> result = fixture.retrieve();
+		Collection<SourceDTO> result = fixture.retrieve();
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:

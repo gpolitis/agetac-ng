@@ -2,7 +2,7 @@ package org.agetac.server.resources;
 
 import java.util.Collection;
 
-import org.agetac.common.dto.Message;
+import org.agetac.common.dto.MessageDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -26,7 +26,7 @@ public class MessagesResourceImplTest {
 		throws Exception {
 		MessagesResourceImpl fixture = new MessagesResourceImpl();
 
-		Collection<Message> result = fixture.retrieve();
+		Collection<MessageDTO> result = fixture.retrieve();
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
@@ -47,7 +47,7 @@ public class MessagesResourceImplTest {
 		throws Exception {
 		MessagesResourceImpl fixture = new MessagesResourceImpl();
 
-		Collection<Message> result = fixture.retrieve();
+		Collection<MessageDTO> result = fixture.retrieve();
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:

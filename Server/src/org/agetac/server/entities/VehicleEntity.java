@@ -1,9 +1,9 @@
-package org.agetac.common.dto;
+package org.agetac.server.entities;
 
 import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable
-public class Vehicle {
+public class VehicleEntity {
 
 	public enum VehiculeState {
 	    DISPO_CASERNE, ALERTE, PARTIS, SUR_LES_LIEUX, TRANSPORT_HOPITAL, DISPO_RADIO, TEMPS_DEPASSE, DEMOBILISE
@@ -20,12 +20,12 @@ public class Vehicle {
 	private String name;
 	private VehiculeState state;
 	private VehiculeType type;
-	private Position position;
-	private Barrack barrack;
+	private PositionEntity position;
+	private BarrackEntity barrack;
 	
-	public Vehicle() {}
+	public VehicleEntity() {}
 	
-	public Vehicle(String n, VehiculeState s, VehiculeType t, Position p, Barrack b) {
+	public VehicleEntity(String n, VehiculeState s, VehiculeType t, PositionEntity p, BarrackEntity b) {
 		this.name = n;
 		this.state = s;
 		this.type = t;
@@ -57,19 +57,19 @@ public class Vehicle {
 		this.type = type;
 	}
 
-	public Position getPosition() {
+	public PositionEntity getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionEntity position) {
 		this.position = position;
 	}
 
-	public Barrack getBarrack() {
+	public BarrackEntity getBarrack() {
 		return barrack;
 	}
 
-	public void setBarrack(Barrack barrack) {
+	public void setBarrack(BarrackEntity barrack) {
 		this.barrack = barrack;
 	}
 	

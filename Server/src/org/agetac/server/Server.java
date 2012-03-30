@@ -23,7 +23,7 @@ import org.restlet.routing.Router;
 public class Server {
 	public static void main(String[] args) throws Exception {
 		deleteDir(new File("db"));
-
+ 
 		// Start the server.
 		Component component = new Component();
 		component.getServers().add(Protocol.HTTP, 8888);

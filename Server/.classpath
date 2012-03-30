@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="lib/org.restlet.ext.xstream.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/jettison-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/modelmapper-0.3.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

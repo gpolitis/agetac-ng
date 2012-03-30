@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Message;
+import org.agetac.common.dto.MessageDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -24,7 +24,7 @@ public class MessageResourceImplTest {
 		throws Exception {
 		MessageResourceImpl fixture = new MessageResourceImpl();
 		// fixture.getRequestAttributes().put("interId", );
-		Message message = new Message();
+		MessageDTO message = new MessageDTO();
 
 		fixture.add(message);
 
@@ -45,7 +45,7 @@ public class MessageResourceImplTest {
 	public void testAdd_2()
 		throws Exception {
 		MessageResourceImpl fixture = new MessageResourceImpl();
-		Message message = new Message();
+		MessageDTO message = new MessageDTO();
 
 		fixture.add(message);
 

@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.VehicleDemand;
+import org.agetac.common.dto.VehicleDemandDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class VehicleDemandResourceImplTest {
 	public void testAdd_1()
 		throws Exception {
 		VehicleDemandResourceImpl fixture = new VehicleDemandResourceImpl();
-		VehicleDemand vehicleDemand = new VehicleDemand();
+		VehicleDemandDTO vehicleDemand = new VehicleDemandDTO();
 
 		fixture.add(vehicleDemand);
 
@@ -44,7 +44,7 @@ public class VehicleDemandResourceImplTest {
 	public void testAdd_2()
 		throws Exception {
 		VehicleDemandResourceImpl fixture = new VehicleDemandResourceImpl();
-		VehicleDemand vehicleDemand = new VehicleDemand();
+		VehicleDemandDTO vehicleDemand = new VehicleDemandDTO();
 
 		fixture.add(vehicleDemand);
 

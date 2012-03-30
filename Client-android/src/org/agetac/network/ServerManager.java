@@ -2,12 +2,12 @@ package org.agetac.network;
 
 import java.util.Collection;
 
-import org.agetac.common.dto.Intervention;
-import org.agetac.common.dto.Message;
-import org.agetac.common.dto.Source;
-import org.agetac.common.dto.Target;
-import org.agetac.common.dto.VehicleDemand;
-import org.agetac.common.dto.Victim;
+import org.agetac.common.dto.InterventionDTO;
+import org.agetac.common.dto.MessageDTO;
+import org.agetac.common.dto.SourceDTO;
+import org.agetac.common.dto.TargetDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.InterventionResource;
 import org.agetac.common.resources.InterventionsResource;
 import org.agetac.common.resources.MessageResource;
@@ -32,7 +32,7 @@ public class ServerManager {
 	private final String host;
 	private final int port;
 
-	public Collection<VehicleDemand> getVehicleDemands(long interId) {
+	public Collection<VehicleDemandDTO> getVehicleDemands(long interId) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/vehicledemands");
 		try {
@@ -46,7 +46,7 @@ public class ServerManager {
 
 	}
 
-	public void addVehicleDemand(long interId, VehicleDemand vehicleDemand) {
+	public void addVehicleDemand(long interId, VehicleDemandDTO vehicleDemand) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/vehicledemand");
 		try {
@@ -60,7 +60,7 @@ public class ServerManager {
 
 	}
 
-	public Collection<Intervention> getInterventions() {
+	public Collection<InterventionDTO> getInterventions() {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/interventions");
 		try {
@@ -74,8 +74,8 @@ public class ServerManager {
 
 	}
 
-	public Intervention createIntervention() {
-		Intervention intervention = new Intervention();
+	public InterventionDTO createIntervention() {
+		InterventionDTO intervention = new InterventionDTO();
 
 		// Add it.
 		ClientResource clientResource = new ClientResource(getBaseAddress()
@@ -91,7 +91,7 @@ public class ServerManager {
 		}
 	}
 
-	public void addMessage(long interId, Message message) {
+	public void addMessage(long interId, MessageDTO message) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/message");
 		try {
@@ -105,7 +105,7 @@ public class ServerManager {
 
 	}
 
-	public void addSource(long interId, Source source) {
+	public void addSource(long interId, SourceDTO source) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/source");
 		try {
@@ -119,7 +119,7 @@ public class ServerManager {
 
 	}
 
-	public void addTarget(long interId, Target target) {
+	public void addTarget(long interId, TargetDTO target) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/target");
 		try {
@@ -133,7 +133,7 @@ public class ServerManager {
 
 	}
 
-	public void addVictim(long interId, Victim victim) {
+	public void addVictim(long interId, VictimDTO victim) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/victim");
 		try {
@@ -146,7 +146,7 @@ public class ServerManager {
 
 	}
 
-	public Collection<Message> getMessages(long interId) {
+	public Collection<MessageDTO> getMessages(long interId) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/messages");
 		try {
@@ -159,7 +159,7 @@ public class ServerManager {
 		}
 	}
 
-	public Collection<Source> getSources(long interId) {
+	public Collection<SourceDTO> getSources(long interId) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/sources");
 		try {
@@ -172,7 +172,7 @@ public class ServerManager {
 		}
 	}
 
-	public Collection<Target> getTargets(long interId) {
+	public Collection<TargetDTO> getTargets(long interId) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/targets");
 		try {
@@ -185,7 +185,7 @@ public class ServerManager {
 		}
 	}
 
-	public Collection<Victim> getVictims(long interId) {
+	public Collection<VictimDTO> getVictims(long interId) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/victims");
 		try {

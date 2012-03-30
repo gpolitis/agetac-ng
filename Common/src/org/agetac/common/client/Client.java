@@ -1,11 +1,11 @@
-package org.agetac.client;
+package org.agetac.common.client;
 
 import java.util.Collection;
 import java.util.Date;
 
 import org.agetac.common.dto.*;
-import org.agetac.common.dto.VehicleDemand.DemandState;
-import org.agetac.common.dto.Vehicle.VehiculeType;
+import org.agetac.common.dto.VehicleDemandDTO.DemandState;
+import org.agetac.common.dto.VehicleDTO.VehiculeType;
 
 public class Client {
 
@@ -14,33 +14,33 @@ public class Client {
 		AgetacClient c = new AgetacClient("localhost", 8888);
 
 		// Create new intervention.
-		Intervention intervention = c.createIntervention();
+		InterventionDTO intervention = c.createIntervention();
 		long interId = intervention.getId();
 
 		// How many do we have?
-		Collection<Intervention> interventions = c.getInterventions();
+		Collection<InterventionDTO> interventions = c.getInterventions();
 		System.out.println("Interventions: " + interventions.size());
 
-		// playWithVehicleDemands(c, interId);
+		playWithVehicleDemands(c, interId);
 
-		// playWithMessages(c, interId);
+		playWithMessages(c, interId);
 
-		// playWithSources(c, interId);
+		playWithSources(c, interId);
 
-		// playWithTargets(c, interId);
+		playWithTargets(c, interId);
 
 		playWithVictims(c, interId);
 	}
 
 	private static void playWithVictims(AgetacClient c, long interId) {
 		// Add victim to intervention.
-		Victim victim = c.addVictim(interId, new Victim());
+		VictimDTO victim = c.addVictim(interId, new VictimDTO());
 
 		// Add second victim.
-		victim = c.addVictim(interId, new Victim());
-		
+		victim = c.addVictim(interId, new VictimDTO());
+
 		// List victims.
-		Collection<Victim> victims = c.getVictims(interId);
+		Collection<VictimDTO> victims = c.getVictims(interId);
 		System.out.println("Victims: " + victims.size());
 
 		// Update the victim we just added.
@@ -57,11 +57,11 @@ public class Client {
 
 	private static void playWithTargets(AgetacClient c, long interId) {
 		// Add targets to intervention.
-		Target target = new Target();
+		TargetDTO target = new TargetDTO();
 		c.addTarget(interId, target);
 
 		// List targets.
-		Collection<Target> targets = c.getTargets(interId);
+		Collection<TargetDTO> targets = c.getTargets(interId);
 		System.out.println("Targets: " + targets.size());
 
 		// Update the target we just added.
@@ -78,15 +78,15 @@ public class Client {
 
 	private static void playWithSources(AgetacClient c, long interId) {
 		// Add sources to intervention.
-		Source source = new Source();
+		SourceDTO source = new SourceDTO();
 		c.addSource(interId, source);
 
 		// List sources.
-		Collection<Source> sources = c.getSources(interId);
+		Collection<SourceDTO> sources = c.getSources(interId);
 		System.out.println("Sources: " + sources.size());
 
 		// Update the source we just added.
-		source.setPosition(new Position(0, 0));
+		source.setPosition(new PositionDTO(0, 0));
 		c.updateSource(source);
 
 		// Delete the source.
@@ -99,11 +99,11 @@ public class Client {
 
 	private static void playWithMessages(AgetacClient c, long interId) {
 		// Add messages to intervention.
-		Message message = new Message();
+		MessageDTO message = new MessageDTO();
 		c.addMessage(interId, message);
 
 		// List messages.
-		Collection<Message> messages = c.getMessages(interId);
+		Collection<MessageDTO> messages = c.getMessages(interId);
 		System.out.println("Messages: " + messages.size());
 
 		// NOTE I would say that a message is an immutable object. Once sent to
@@ -112,12 +112,14 @@ public class Client {
 
 	private static void playWithVehicleDemands(AgetacClient c, long interId) {
 		// Add a vehicle demand.
-		VehicleDemand vehicleDemand = new VehicleDemand(DemandState.ASKED,
-				VehiculeType.VSAV, new Position(), new Date());
+		VehicleDemandDTO vehicleDemand = new VehicleDemandDTO(
+				DemandState.ASKED, VehiculeType.VSAV, new PositionDTO(),
+				new Date());
 		c.addVehicleDemand(interId, vehicleDemand);
 
 		// Print the number of vehicle demands for this intervention.
-		Collection<VehicleDemand> vehicleDemands = c.getVehicleDemands(interId);
+		Collection<VehicleDemandDTO> vehicleDemands = c
+				.getVehicleDemands(interId);
 		System.out.println("Vehicle demands: " + vehicleDemands.size());
 	}
 }

@@ -1,4 +1,4 @@
-package org.agetac.common.dto;
+package org.agetac.server.entities;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -7,43 +7,47 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Source {
+public class TargetEntity {
 
-	public enum SourceType {WATER, FIRE, CHEM}
-	
-	private SourceType type;
-	private Position position;
-	private String name = "";
-	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
 	
-	public Source() {}
+	public enum TargetType {WATER, FIRE, CHEM, HUMAN}
 	
-	public Source(SourceType type) {
-		this.position = new Position();
+	private TargetType type;
+	private PositionEntity position;
+	private String name = "";
+	
+	public TargetEntity() {}
+	
+	public TargetEntity(TargetType type) {
+		this.position = new PositionEntity();
 	}
 	
-	public Source(String name, SourceType type, Position p) {
+	public long getId() {
+		return id;
+	}
+	
+	public TargetEntity(String name, TargetType type, PositionEntity p) {
 		this.name = name;
 		this.type = type;
 		this.position = p;
 	}
 
-	public SourceType getType() {
+	public TargetType getType() {
 		return type;
 	}
 
-	public void setType(SourceType type) {
+	public void setType(TargetType type) {
 		this.type = type;
 	}
 
-	public Position getPosition() {
+	public PositionEntity getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionEntity position) {
 		this.position = position;
 	}
 
@@ -54,9 +58,4 @@ public class Source {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public long getId() {
-		return id;
-	}
-	
 }

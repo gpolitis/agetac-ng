@@ -1,24 +1,21 @@
 package org.agetac.common.dto;
 
-import javax.jdo.annotations.PersistenceCapable;
-
-@PersistenceCapable
-public class Action {
+public class ActionDTO {
 
 	public enum ActionType {WATER, FIRE, HUMAN}
 	
 	private String name = "";
 	private ActionType type;
-	private Position position;
-	private Position aim;
+	private PositionDTO position;
+	private PositionDTO aim;
 	
-	public Action() {
+	public ActionDTO() {
 		this.type = ActionType.FIRE;
-		this.position = new Position();
-		this.aim = new Position();
+		this.position = new PositionDTO();
+		this.aim = new PositionDTO();
 	}
 	
-	public Action(String n, ActionType t, Position p, Position a) {
+	public ActionDTO(String n, ActionType t, PositionDTO p, PositionDTO a) {
 		this.name = n;
 		this.type = t;
 		this.position = p;
@@ -41,19 +38,19 @@ public class Action {
 		this.type = type;
 	}
 
-	public Position getPosition() {
+	public PositionDTO getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionDTO position) {
 		this.position = position;
 	}
 
-	public Position getAim() {
+	public PositionDTO getAim() {
 		return aim;
 	}
 
-	public void setAim(Position aim) {
+	public void setAim(PositionDTO aim) {
 		this.aim = aim;
 	}
 	

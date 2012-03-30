@@ -1,16 +1,13 @@
 package org.agetac.common.dto;
 
-import javax.jdo.annotations.PersistenceCapable;
-
-@PersistenceCapable
-public class Position {
+public class PositionDTO {
 
 	private double latitude = 0;
 	private double longitude = 0;
 	
-	public Position() {}
+	public PositionDTO() {}
 	
-	public Position(double latitude, double longitude) {
+	public PositionDTO(double latitude, double longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}

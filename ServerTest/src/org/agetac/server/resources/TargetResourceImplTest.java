@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Target;
+import org.agetac.common.dto.TargetDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class TargetResourceImplTest {
 	public void testAdd_1()
 		throws Exception {
 		TargetResourceImpl fixture = new TargetResourceImpl();
-		Target target = new Target();
+		TargetDTO target = new TargetDTO();
 
 		fixture.add(target);
 
@@ -44,7 +44,7 @@ public class TargetResourceImplTest {
 	public void testAdd_2()
 		throws Exception {
 		TargetResourceImpl fixture = new TargetResourceImpl();
-		Target target = new Target();
+		TargetDTO target = new TargetDTO();
 
 		fixture.add(target);
 

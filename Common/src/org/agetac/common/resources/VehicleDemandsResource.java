@@ -2,13 +2,13 @@ package org.agetac.common.resources;
 
 import java.util.Collection;
 
-import org.agetac.common.dto.VehicleDemand;
+import org.agetac.common.dto.VehicleDemandDTO;
 import org.restlet.resource.Get;
 
 
 public interface VehicleDemandsResource {
 
 	@Get
-	public abstract Collection<VehicleDemand> retrieve();
+	public abstract Collection<VehicleDemandDTO> retrieve();
 
 }

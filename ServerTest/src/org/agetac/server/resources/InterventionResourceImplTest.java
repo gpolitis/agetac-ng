@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Intervention;
+import org.agetac.common.dto.InterventionDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class InterventionResourceImplTest {
 	public void testAdd_1()
 		throws Exception {
 		InterventionResourceImpl fixture = new InterventionResourceImpl();
-		Intervention intervention = new Intervention();
+		InterventionDTO intervention = new InterventionDTO();
 
 		fixture.add(intervention);
 	}

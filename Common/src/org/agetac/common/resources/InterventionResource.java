@@ -1,12 +1,12 @@
 package org.agetac.common.resources;
 
-import org.agetac.common.dto.Intervention;
+import org.agetac.common.dto.InterventionDTO;
 import org.restlet.resource.Post;
 
 
 public interface InterventionResource {
 
 	@Post
-	void add(Intervention intervention);
+	void add(InterventionDTO intervention);
 
 }

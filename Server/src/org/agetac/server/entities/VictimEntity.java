@@ -1,4 +1,4 @@
-package org.agetac.common.dto;
+package org.agetac.server.entities;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -7,13 +7,13 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Victim {
+public class VictimEntity {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
 
-	private Intervention intervention;
+	private InterventionEntity intervention;
 	
 	public long getId() {
 		return id;
@@ -21,10 +21,10 @@ public class Victim {
 
 	private String name = "";
 
-	public Victim() {
+	public VictimEntity() {
 	}
 
-	public Victim(String name) {
+	public VictimEntity(String name) {
 		this.name = name;
 	}
 

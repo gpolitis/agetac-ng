@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Victim;
+import org.agetac.common.dto.VictimDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class VictimResourceImplTest {
 	public void testAdd_1()
 		throws Exception {
 		VictimResourceImpl fixture = new VictimResourceImpl();
-		Victim involved = new Victim();
+		VictimDTO involved = new VictimDTO();
 
 		fixture.add(involved);
 
@@ -44,7 +44,7 @@ public class VictimResourceImplTest {
 	public void testAdd_2()
 		throws Exception {
 		VictimResourceImpl fixture = new VictimResourceImpl();
-		Victim involved = new Victim();
+		VictimDTO involved = new VictimDTO();
 
 		fixture.add(involved);
 

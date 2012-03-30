@@ -1,27 +1,27 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Source;
+import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.resources.SourceResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.SimpleDAO;
+import org.agetac.server.db.SourceDAO;
 import org.restlet.resource.ServerResource;
 
 public class SourceResourceImpl extends ServerResource implements
 		SourceResource {
 
 	@Override
-	public Source add(Source source) {
+	public SourceDTO add(SourceDTO source) {
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
-		dao.add(interId, source);
+		dao.addSource(interId, source);
 		
 		return source;
 	}
 
 	@Override
-	public void update(Source source) {
+	public void update(SourceDTO source) {
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +31,7 @@ public class SourceResourceImpl extends ServerResource implements
 		long sourceId = Long.parseLong((String) getRequestAttributes().get(
 				"sourceId"));
 
-		SimpleDAO.getInstance().delete(Source.class, sourceId);
+		SourceDAO.getInstance().delete(sourceId);
 
 	}
 

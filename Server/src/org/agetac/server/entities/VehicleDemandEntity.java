@@ -1,27 +1,27 @@
-package org.agetac.common.dto;
+package org.agetac.server.entities;
 
 import java.util.Date;
 
 import javax.jdo.annotations.PersistenceCapable;
 
-import org.agetac.common.dto.Vehicle.VehiculeType;
+import org.agetac.server.entities.VehicleEntity.VehiculeType;
 
 @PersistenceCapable
-public class VehicleDemand {
+public class VehicleDemandEntity {
 
 	public enum DemandState {ASKED, REFUSED, ACCEPTED}
 	
 	private Date timestamp;
 	private DemandState state;
-	private Position position;
+	private PositionEntity position;
 	private VehiculeType category;
 	
 	/** default vehicule id associated with the demande is unknown (-1)*/
 	private int vehiculeId = -1;
 	
-	public VehicleDemand() {}
+	public VehicleDemandEntity() {}
 	
-	public VehicleDemand(DemandState state, VehiculeType cat, Position p, Date date) {
+	public VehicleDemandEntity(DemandState state, VehiculeType cat, PositionEntity p, Date date) {
 		this.state = state;
 		this.category = cat;
 		this.position = p;
@@ -44,11 +44,11 @@ public class VehicleDemand {
 		this.state = state;
 	}
 
-	public Position getPosition() {
+	public PositionEntity getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionEntity position) {
 		this.position = position;
 	}
 

@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Source;
+import org.agetac.common.dto.SourceDTO;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class SourceResourceImplTest {
 	public void testAdd_1()
 		throws Exception {
 		SourceResourceImpl fixture = new SourceResourceImpl();
-		Source source = new Source();
+		SourceDTO source = new SourceDTO();
 
 		fixture.add(source);
 
@@ -44,7 +44,7 @@ public class SourceResourceImplTest {
 	public void testAdd_2()
 		throws Exception {
 		SourceResourceImpl fixture = new SourceResourceImpl();
-		Source source = new Source();
+		SourceDTO source = new SourceDTO();
 
 		fixture.add(source);
 

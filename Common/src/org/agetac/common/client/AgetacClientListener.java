@@ -1,4 +1,4 @@
-package org.agetac.client;
+package org.agetac.common.client;
 
 public interface AgetacClientListener {
 

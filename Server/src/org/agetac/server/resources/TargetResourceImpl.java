@@ -1,27 +1,27 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Target;
+import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.resources.TargetResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.SimpleDAO;
+import org.agetac.server.db.TargetDAO;
 import org.restlet.resource.ServerResource;
 
 public class TargetResourceImpl extends ServerResource implements
 		TargetResource {
 
 	@Override
-	public Target add(Target target) {
+	public TargetDTO add(TargetDTO target) {
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
-		dao.add(interId, target);
+		dao.addTarget(interId, target);
 		
 		return target;
 	}
 
 	@Override
-	public void update(Target target) {
+	public void update(TargetDTO target) {
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +31,7 @@ public class TargetResourceImpl extends ServerResource implements
 		long targetId = Long.parseLong((String) getRequestAttributes().get(
 				"targetId"));
 
-		SimpleDAO.getInstance().delete(Target.class, targetId);
+		TargetDAO.getInstance().delete(targetId);
 
 	}
 

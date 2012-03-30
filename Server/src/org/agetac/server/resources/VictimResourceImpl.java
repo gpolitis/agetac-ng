@@ -1,16 +1,16 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.dto.Victim;
+import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.VictimResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.SimpleDAO;
+import org.agetac.server.db.VictimDAO;
 import org.restlet.resource.ServerResource;
 
 public class VictimResourceImpl extends ServerResource implements
 		VictimResource {
 
 	@Override
-	public Victim add(Victim victim) {
+	public VictimDTO add(VictimDTO victim) {
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
@@ -21,7 +21,7 @@ public class VictimResourceImpl extends ServerResource implements
 	}
 
 	@Override
-	public void update(Victim victim) {
+	public void update(VictimDTO victim) {
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +31,7 @@ public class VictimResourceImpl extends ServerResource implements
 		long victimId = Long.parseLong((String) getRequestAttributes().get(
 				"victimId"));
 
-		SimpleDAO.getInstance().delete(Victim.class, victimId);
+		VictimDAO.getInstance().delete(victimId);
 
 	}
 
