@@ -1,8 +1,11 @@
 package org.agetac.client;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.agetac.common.dto.*;
+import org.agetac.common.dto.VehicleDemand.DemandState;
+import org.agetac.common.dto.Vehicle.VehiculeType;
 
 public class Client {
 
@@ -19,7 +22,7 @@ public class Client {
 		System.out.println("Interventions: " + interventions.size());
 
 		// Add a vehicle demand.
-		VehicleDemand vehicleDemand = new VehicleDemand();
+		VehicleDemand vehicleDemand = new VehicleDemand("demand", DemandState.ASKED, VehiculeType.VSAV, new Position(), new Date());
 		c.addVehicleDemand(interId, vehicleDemand);
 
 		// Print the number of vehicle demands for this intervention.

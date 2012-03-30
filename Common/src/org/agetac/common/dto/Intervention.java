@@ -12,6 +12,8 @@ public class Intervention {
 	private long id;
 
 	private Collection<VehicleDemand> vehicleDemands;
+	
+	private Collection<Vehicle> vehicles;
 
 	private Collection<Message> messages;
 	
@@ -26,11 +28,11 @@ public class Intervention {
 		return vehicleDemands;
 	}
 	
-	public Collection<Message> getMessages(){
+	public Collection<Message> getMessages() {
 		return messages;
 	}
 	
-	public Collection<Target> getTargets(){
+	public Collection<Target> getTargets() {
 		return targets;
 	}
 	
