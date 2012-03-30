@@ -30,6 +30,9 @@ public class Client {
 		playWithTargets(c, interId);
 
 		playWithVictims(c, interId);
+
+		intervention = c.getIntervention(intervention.getId());
+		System.out.println("Victims: " + intervention.getVictims().size());
 	}
 
 	private static void playWithVictims(AgetacClient c, long interId) {

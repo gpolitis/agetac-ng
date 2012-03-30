@@ -15,21 +15,22 @@ public class InterventionEntity {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
 
-	@Persistent(mappedBy = "intervention")
+	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<VehicleDemandEntity> vehicleDemands;
 
+	/* TODO Need to figure out how to handle this relationship. */
 	private Collection<VehicleEntity> vehicles;
 
-	@Persistent(mappedBy = "intervention")
+	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<MessageEntity> messages;
 
-	@Persistent(mappedBy = "intervention")
+	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<TargetEntity> targets;
 
-	@Persistent(mappedBy = "intervention")
+	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<SourceEntity> sources;
 
-	@Persistent(mappedBy = "intervention")
+	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<VictimEntity> victims;
 
 	public Collection<VehicleDemandEntity> getVehicleDemands() {

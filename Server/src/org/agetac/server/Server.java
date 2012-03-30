@@ -31,6 +31,7 @@ public class Server {
 			@Override
 			public Restlet createInboundRoot() {
 				Router router = new Router();
+				router.attach("/intervention/{interId}", InterventionResourceImpl.class);
 				router.attach("/intervention", InterventionResourceImpl.class);
 				router.attach("/interventions", InterventionsResourceImpl.class);
 				router.attach("/intervention/{interId}/messages",

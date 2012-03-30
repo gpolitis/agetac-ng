@@ -310,9 +310,59 @@ public class InterventionDAO {
 
 		ModelMapper modelMapper = new ModelMapper();
 		List<InterventionDTO> ret = new ArrayList<InterventionDTO>();
-		for (InterventionEntity entity : results)
-			ret.add(modelMapper.map(entity, InterventionDTO.class));
+		for (InterventionEntity entity : results) {
+			InterventionDTO dto = modelMapper
+					.map(entity, InterventionDTO.class);
+			ret.add(dto);
+
+			for (VictimEntity victim : entity.getVictims()) {
+				dto.getVictims().add(modelMapper.map(victim, VictimDTO.class));
+			}
+
+			for (SourceEntity source : entity.getSources()) {
+				dto.getSources().add(modelMapper.map(source, SourceDTO.class));
+			}
+
+			for (TargetEntity target : entity.getTargets()) {
+				dto.getTargets().add(modelMapper.map(target, TargetDTO.class));
+			}
+
+			for (MessageEntity message : entity.getMessages()) {
+				dto.getMessages().add(
+						modelMapper.map(message, MessageDTO.class));
+			}
+		}
 
 		return ret;
+	}
+
+	public InterventionDTO retrieveOne(long id) {
+		PersistenceManager pm = getPM();
+		Object interKey = pm.newObjectIdInstance(InterventionEntity.class, id);
+
+		InterventionEntity entity = (InterventionEntity) pm
+				.getObjectById(interKey);
+
+		ModelMapper modelMapper = new ModelMapper();
+
+		InterventionDTO dto = modelMapper.map(entity, InterventionDTO.class);
+
+		for (VictimEntity victim : entity.getVictims()) {
+			dto.getVictims().add(modelMapper.map(victim, VictimDTO.class));
+		}
+
+		for (SourceEntity source : entity.getSources()) {
+			dto.getSources().add(modelMapper.map(source, SourceDTO.class));
+		}
+
+		for (TargetEntity target : entity.getTargets()) {
+			dto.getTargets().add(modelMapper.map(target, TargetDTO.class));
+		}
+
+		for (MessageEntity message : entity.getMessages()) {
+			dto.getMessages().add(modelMapper.map(message, MessageDTO.class));
+		}
+
+		return dto;
 	}
 }

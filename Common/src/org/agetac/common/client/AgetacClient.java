@@ -277,4 +277,16 @@ public class AgetacClient {
 			clientResource.release();
 		}
 	}
+
+	public InterventionDTO getIntervention(long id) {
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/intervention/" + id);
+		try {
+			InterventionResource resource = clientResource.wrap(InterventionResource.class);
+
+			return resource.retrieve();
+		} finally {
+			clientResource.release();
+		}
+	}
 }

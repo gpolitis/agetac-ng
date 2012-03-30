@@ -21,4 +21,12 @@ public class InterventionResourceImpl extends ServerResource implements
 		dao.add(entity);
 	}
 
+	@Override
+	public InterventionDTO retrieve() {
+		long interId = Long.parseLong((String) getRequestAttributes().get(
+				"interId"));
+
+		return new InterventionDAO().retrieveOne(interId);
+	}
+
 }
