@@ -17,6 +17,7 @@ public class VictimsResourceImpl extends ServerResource implements
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
+
 		return dao.retrieveVictims(interId);
 	}
 

@@ -21,30 +21,41 @@ public class Client {
 		Collection<Intervention> interventions = c.getInterventions();
 		System.out.println("Interventions: " + interventions.size());
 
-		// Add a vehicle demand.
-		VehicleDemand vehicleDemand = new VehicleDemand("demand", DemandState.ASKED, VehiculeType.VSAV, new Position(), new Date());
-		c.addVehicleDemand(interId, vehicleDemand);
+		// playWithVehicleDemands(c, interId);
 
-		// Print the number of vehicle demands for this intervention.
-		Collection<VehicleDemand> vehicleDemands = c.getVehicleDemands(interId);
-		System.out.println("Vehicle demands: " + vehicleDemands.size());
+		// playWithMessages(c, interId);
 
-		// Add messages to intervention.
-		Message message = new Message();
-		c.addMessage(interId, message);
+		// playWithSources(c, interId);
 
-		// List messages.
-		Collection<Message> messages = c.getMessages(interId);
-		System.out.println("Messages: " + messages.size());
+		// playWithTargets(c, interId);
 
-		// Add sources to intervention.
-		Source source = new Source();
-		c.addSource(interId, source);
+		playWithVictims(c, interId);
+	}
 
-		// List sources.
-		Collection<Source> sources = c.getSources(interId);
-		System.out.println("Sources: " + sources.size());
+	private static void playWithVictims(AgetacClient c, long interId) {
+		// Add victim to intervention.
+		Victim victim = c.addVictim(interId, new Victim());
 
+		// Add second victim.
+		victim = c.addVictim(interId, new Victim());
+		
+		// List victims.
+		Collection<Victim> victims = c.getVictims(interId);
+		System.out.println("Victims: " + victims.size());
+
+		// Update the victim we just added.
+		victim.setName("George");
+		c.updateVictim(victim);
+
+		// Delete the victim.
+		c.deleteVictim(victim.getId());
+
+		// List victims.
+		victims = c.getVictims(interId);
+		System.out.println("Victims: " + victims.size());
+	}
+
+	private static void playWithTargets(AgetacClient c, long interId) {
 		// Add targets to intervention.
 		Target target = new Target();
 		c.addTarget(interId, target);
@@ -53,12 +64,60 @@ public class Client {
 		Collection<Target> targets = c.getTargets(interId);
 		System.out.println("Targets: " + targets.size());
 
-		// Add victim to intervention.
-		Victim victim = new Victim();
-		c.addVictim(interId, victim);
+		// Update the target we just added.
+		target.setName("Building A");
+		c.updateTarget(target);
+
+		// Delete the target.
+		c.deleteTarget(target.getId());
+
+		// List targets.
+		targets = c.getTargets(interId);
+		System.out.println("Targets: " + targets.size());
+	}
+
+	private static void playWithSources(AgetacClient c, long interId) {
+		// Add sources to intervention.
+		Source source = new Source();
+		c.addSource(interId, source);
+
+		// List sources.
+		Collection<Source> sources = c.getSources(interId);
+		System.out.println("Sources: " + sources.size());
+
+		// Update the source we just added.
+		source.setPosition(new Position(0, 0));
+		c.updateSource(source);
+
+		// Delete the source.
+		c.deleteSource(source.getId());
+
+		// List sources.
+		sources = c.getSources(interId);
+		System.out.println("Sources: " + sources.size());
+	}
+
+	private static void playWithMessages(AgetacClient c, long interId) {
+		// Add messages to intervention.
+		Message message = new Message();
+		c.addMessage(interId, message);
 
 		// List messages.
-		Collection<Victim> victims = c.getVictims(interId);
-		System.out.println("Victims: " + victims.size());
+		Collection<Message> messages = c.getMessages(interId);
+		System.out.println("Messages: " + messages.size());
+
+		// NOTE I would say that a message is an immutable object. Once sent to
+		// the server, it cannot be changed, nor deleted.
+	}
+
+	private static void playWithVehicleDemands(AgetacClient c, long interId) {
+		// Add a vehicle demand.
+		VehicleDemand vehicleDemand = new VehicleDemand(DemandState.ASKED,
+				VehiculeType.VSAV, new Position(), new Date());
+		c.addVehicleDemand(interId, vehicleDemand);
+
+		// Print the number of vehicle demands for this intervention.
+		Collection<VehicleDemand> vehicleDemands = c.getVehicleDemands(interId);
+		System.out.println("Vehicle demands: " + vehicleDemands.size());
 	}
 }

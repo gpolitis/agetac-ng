@@ -66,7 +66,7 @@ public class SimpleDAO {
 
 	}
 
-	public synchronized <T> void delete(Class<T> cls, String uniqueID) {
+	public synchronized <T> void delete(Class<T> cls, long uniqueID) {
 		PersistenceManager pm = SimpleDAO.getPM();
 
 		Transaction tx = pm.currentTransaction();

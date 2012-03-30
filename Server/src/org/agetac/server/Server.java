@@ -20,7 +20,6 @@ import org.restlet.Restlet;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
 
-
 public class Server {
 	public static void main(String[] args) throws Exception {
 		deleteDir(new File("db"));
@@ -34,18 +33,6 @@ public class Server {
 				Router router = new Router();
 				router.attach("/intervention", InterventionResourceImpl.class);
 				router.attach("/interventions", InterventionsResourceImpl.class);
-				router.attach("/intervention/{interId}/vehicledemand",
-						VehicleDemandResourceImpl.class);
-				router.attach("/intervention/{interId}/vehicledemands",
-						VehicleDemandsResourceImpl.class);
-				router.attach("/intervention/{interId}/message",
-						MessageResourceImpl.class);
-				router.attach("/intervention/{interId}/target",
-						TargetResourceImpl.class);
-				router.attach("/intervention/{interId}/source",
-						SourceResourceImpl.class);
-				router.attach("/intervention/{interId}/victim",
-						VictimResourceImpl.class);
 				router.attach("/intervention/{interId}/messages",
 						MessagesResourceImpl.class);
 				router.attach("/intervention/{interId}/targets",
@@ -54,6 +41,26 @@ public class Server {
 						SourcesResourceImpl.class);
 				router.attach("/intervention/{interId}/victims",
 						VictimsResourceImpl.class);
+
+				router.attach("/vehicledemand/{vdId}",
+						VehicleDemandResourceImpl.class);
+				router.attach("/intervention/{interId}/vehicledemand",
+						VehicleDemandResourceImpl.class);
+				router.attach("/intervention/{interId}/vehicledemands",
+						VehicleDemandsResourceImpl.class);
+				router.attach("/message/{msgId}", MessageResourceImpl.class);
+				router.attach("/intervention/{interId}/message",
+						MessageResourceImpl.class);
+				router.attach("/target/{targetId}", TargetResourceImpl.class);
+				router.attach("/intervention/{interId}/target",
+						TargetResourceImpl.class);
+				router.attach("/source/{sourceId}", SourceResourceImpl.class);
+				router.attach("/intervention/{interId}/source",
+						SourceResourceImpl.class);
+				router.attach("/victim/{victimId}", VictimResourceImpl.class);
+				router.attach("/intervention/{interId}/victim",
+						VictimResourceImpl.class);
+
 				return router;
 			}
 		});

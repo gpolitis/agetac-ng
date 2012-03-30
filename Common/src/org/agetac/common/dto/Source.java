@@ -1,8 +1,12 @@
 package org.agetac.common.dto;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Source {
 
 	public enum SourceType {WATER, FIRE, CHEM}
@@ -10,6 +14,10 @@ public class Source {
 	private SourceType type;
 	private Position position;
 	private String name = "";
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
 	
 	public Source() {}
 	
@@ -45,6 +53,10 @@ public class Source {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public long getId() {
+		return id;
 	}
 	
 }

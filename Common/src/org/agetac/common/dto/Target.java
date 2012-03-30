@@ -1,10 +1,18 @@
 package org.agetac.common.dto;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Target {
 
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
+	
 	public enum TargetType {WATER, FIRE, CHEM, HUMAN}
 	
 	private TargetType type;
@@ -15,6 +23,10 @@ public class Target {
 	
 	public Target(TargetType type) {
 		this.position = new Position();
+	}
+	
+	public long getId() {
+		return id;
 	}
 	
 	public Target(String name, TargetType type, Position p) {

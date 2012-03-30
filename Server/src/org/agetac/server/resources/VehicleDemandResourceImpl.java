@@ -10,7 +10,7 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 		VehicleDemandResource {
 
 	@Override
-	public void add(VehicleDemand vehicleDemand) {
+	public VehicleDemand add(VehicleDemand vehicleDemand) {
 
 		InterventionDAO dao = new InterventionDAO();
 
@@ -18,5 +18,6 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 				"interId"));
 		dao.add(interId, vehicleDemand);
 
+		return vehicleDemand;
 	}
 }

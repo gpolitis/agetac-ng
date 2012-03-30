@@ -46,14 +46,14 @@ public class AgetacClient {
 
 	}
 
-	public void addVehicleDemand(long interId, VehicleDemand vehicleDemand) {
+	public VehicleDemand addVehicleDemand(long interId, VehicleDemand vehicleDemand) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/vehicledemand");
 		try {
 			VehicleDemandResource vehicleDemandResource = clientResource
 					.wrap(VehicleDemandResource.class);
 
-			vehicleDemandResource.add(vehicleDemand);
+			return vehicleDemandResource.add(vehicleDemand);
 		} finally {
 			clientResource.release();
 		}
@@ -91,55 +91,55 @@ public class AgetacClient {
 		}
 	}
 
-	public void addMessage(long interId, Message message) {
+	public Message addMessage(long interId, Message message) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/message");
 		try {
 			MessageResource messageResource = clientResource
 					.wrap(MessageResource.class);
 
-			messageResource.add(message);
+			return messageResource.add(message);
 		} finally {
 			clientResource.release();
 		}
 
 	}
 
-	public void addSource(long interId, Source source) {
+	public Source addSource(long interId, Source source) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/source");
 		try {
 			SourceResource sourceResource = clientResource
 					.wrap(SourceResource.class);
 
-			sourceResource.add(source);
+			return sourceResource.add(source);
 		} finally {
 			clientResource.release();
 		}
 
 	}
 
-	public void addTarget(long interId, Target target) {
+	public Target addTarget(long interId, Target target) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/target");
 		try {
 			TargetResource targetResource = clientResource
 					.wrap(TargetResource.class);
 
-			targetResource.add(target);
+			return targetResource.add(target);
 		} finally {
 			clientResource.release();
 		}
 
 	}
 
-	public void addVictim(long interId, Victim victim) {
+	public Victim addVictim(long interId, Victim victim) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/victim");
 		try {
 			VictimResource resource = clientResource.wrap(VictimResource.class);
 
-			resource.add(victim);
+			return resource.add(victim);
 		} finally {
 			clientResource.release();
 		}
@@ -200,5 +200,81 @@ public class AgetacClient {
 
 	private String getBaseAddress() {
 		return "http://" + host + ":" + port;
+	}
+
+	public void updateVictim(Victim victim) {
+
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/victim/" + victim.getId());
+		try {
+			VictimResource resource = clientResource.wrap(VictimResource.class);
+
+			resource.update(victim);
+		} finally {
+			clientResource.release();
+		}
+
+	}
+
+	public void updateTarget(Target target) {
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/target/" + target.getId());
+		try {
+			TargetResource resource = clientResource.wrap(TargetResource.class);
+
+			resource.update(target);
+		} finally {
+			clientResource.release();
+		}
+	}
+
+	public void updateSource(Source source) {
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/source/" + source.getId());
+		try {
+			SourceResource resource = clientResource.wrap(SourceResource.class);
+
+			resource.update(source);
+		} finally {
+			clientResource.release();
+		}
+
+	}
+
+	public void deleteTarget(long id) {
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/target/" + id);
+		try {
+			TargetResource resource = clientResource.wrap(TargetResource.class);
+
+			resource.remove();
+		} finally {
+			clientResource.release();
+		}
+
+	}
+
+	public void deleteVictim(long id) {
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/victim/" + id);
+		try {
+			VictimResource resource = clientResource.wrap(VictimResource.class);
+
+			resource.remove();
+		} finally {
+			clientResource.release();
+		}
+	}
+
+	public void deleteSource(long id) {
+		ClientResource clientResource = new ClientResource(getBaseAddress()
+				+ "/source/" + id);
+		try {
+			SourceResource resource = clientResource.wrap(SourceResource.class);
+
+			resource.remove();
+		} finally {
+			clientResource.release();
+		}
 	}
 }

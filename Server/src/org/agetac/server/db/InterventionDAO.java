@@ -160,7 +160,7 @@ public class InterventionDAO {
 		}
 	}
 
-	public void add(long interId, Victim involved) {
+	public void add(long interId, Victim victim) {
 		PersistenceManager pm = SimpleDAO.getPM();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -170,8 +170,7 @@ public class InterventionDAO {
 					interId);
 
 			Intervention inter = (Intervention) pm.getObjectById(interKey);
-			inter.getVictims().add(involved);
-			pm.makePersistent(inter);
+			inter.getVictims().add(victim);
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -190,7 +189,8 @@ public class InterventionDAO {
 					interId);
 
 			Intervention inter = (Intervention) pm.getObjectById(interKey);
-			return inter.getVictims();
+			Collection<Victim> victims = inter.getVictims();
+			return victims;
 		} finally {
 
 			pm.close();

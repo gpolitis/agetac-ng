@@ -10,12 +10,14 @@ public class MessageResourceImpl extends ServerResource implements
 		MessageResource {
 
 	@Override
-	public void add(Message message) {
+	public Message add(Message message) {
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
 		dao.add(interId, message);
+		
+		return message;
 	}
 
 }

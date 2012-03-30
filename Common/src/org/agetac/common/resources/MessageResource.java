@@ -6,6 +6,6 @@ import org.restlet.resource.Post;
 public interface MessageResource {
 
 	@Post
-	public abstract void add(Message message);
+	public abstract Message add(Message message);
 
 }

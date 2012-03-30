@@ -13,7 +13,6 @@ public class VehicleDemand {
 	
 	private Date timestamp;
 	private DemandState state;
-	private String name;
 	private Position position;
 	private VehiculeType category;
 	
@@ -22,8 +21,7 @@ public class VehicleDemand {
 	
 	public VehicleDemand() {}
 	
-	public VehicleDemand(String name, DemandState state, VehiculeType cat, Position p, Date date) {
-		this.name = name;
+	public VehicleDemand(DemandState state, VehiculeType cat, Position p, Date date) {
 		this.state = state;
 		this.category = cat;
 		this.position = p;
@@ -44,14 +42,6 @@ public class VehicleDemand {
 
 	public void setState(DemandState state) {
 		this.state = state;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Position getPosition() {

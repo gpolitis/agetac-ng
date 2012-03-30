@@ -7,6 +7,6 @@ import org.restlet.resource.Post;
 public interface VehicleDemandResource {
 
 	@Post
-	public abstract void add(VehicleDemand vehicleDemand);
+	public abstract VehicleDemand add(VehicleDemand vehicleDemand);
 
 }
