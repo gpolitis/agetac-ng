@@ -15,14 +15,18 @@ public class InterventionEntity {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
 
+	@Persistent(mappedBy = "intervention")
 	private Collection<VehicleDemandEntity> vehicleDemands;
 
 	private Collection<VehicleEntity> vehicles;
 
+	@Persistent(mappedBy = "intervention")
 	private Collection<MessageEntity> messages;
 
+	@Persistent(mappedBy = "intervention")
 	private Collection<TargetEntity> targets;
 
+	@Persistent(mappedBy = "intervention")
 	private Collection<SourceEntity> sources;
 
 	@Persistent(mappedBy = "intervention")

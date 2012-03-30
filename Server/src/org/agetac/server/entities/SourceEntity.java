@@ -15,6 +15,8 @@ public class SourceEntity {
 	private PositionEntity position;
 	private String name = "";
 	
+	private InterventionEntity intervention;
+	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;

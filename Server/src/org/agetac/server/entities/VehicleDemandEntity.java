@@ -16,6 +16,8 @@ public class VehicleDemandEntity {
 	private PositionEntity position;
 	private VehiculeType category;
 	
+	private InterventionEntity intervention;
+	
 	/** default vehicule id associated with the demande is unknown (-1)*/
 	private int vehiculeId = -1;
 	

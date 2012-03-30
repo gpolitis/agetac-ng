@@ -15,6 +15,8 @@ public class TargetEntity {
 	
 	public enum TargetType {WATER, FIRE, CHEM, HUMAN}
 	
+	private InterventionEntity intervention;
+	
 	private TargetType type;
 	private PositionEntity position;
 	private String name = "";

@@ -1,5 +1,11 @@
 package org.agetac.server.db;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
+
+import org.agetac.server.entities.SourceEntity;
+import org.agetac.server.entities.TargetEntity;
+
 public class SourceDAO {
 
 	public static SourceDAO getInstance() {
@@ -8,7 +14,29 @@ public class SourceDAO {
 	}
 
 	public void delete(long sourceId) {
-		// TODO Auto-generated method stub
+		PersistenceManager pm = InterventionDAO.getPM();
+
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			Object idInstance = pm.newObjectIdInstance(SourceEntity.class,
+					sourceId);
+			@SuppressWarnings("unchecked")
+			SourceEntity obj = (SourceEntity) pm.getObjectById(idInstance);
+			if (obj == null)
+				return;
+
+			pm.deletePersistent(obj);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
 		
 	}
 
