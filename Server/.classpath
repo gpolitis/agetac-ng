@@ -10,10 +10,15 @@
 	<classpathentry kind="lib" path="lib/datanucleus-rdbms-3.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/jdo-api-3.1-SNAPSHOT-20110926.jar"/>
-	<classpathentry kind="lib" path="lib/org.restlet.jar"/>
-	<classpathentry kind="lib" path="lib/org.restlet.ext.xstream.jar"/>
-	<classpathentry kind="lib" path="lib/xstream-1.4.2.jar"/>
-	<classpathentry kind="lib" path="lib/jettison-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/modelmapper-0.3.5.jar"/>
+	<classpathentry kind="lib" path="lib/org.codehaus.jackson.core.jar"/>
+	<classpathentry kind="lib" path="lib/org.codehaus.jackson.mapper.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.httpclient.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.jackson.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.httpclient.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.httpcore.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.logging.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.ssl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

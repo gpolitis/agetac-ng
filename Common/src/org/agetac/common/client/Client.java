@@ -103,6 +103,7 @@ public class Client {
 	private static void playWithMessages(AgetacClient c, long interId) {
 		// Add messages to intervention.
 		MessageDTO message = new MessageDTO();
+		message.setText("Hello, world!");
 		c.addMessage(interId, message);
 
 		// List messages.

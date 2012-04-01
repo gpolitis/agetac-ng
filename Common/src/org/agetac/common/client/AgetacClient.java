@@ -23,7 +23,7 @@ import org.agetac.common.resources.VictimsResource;
 import org.restlet.resource.ClientResource;
 
 public class AgetacClient {
-	
+
 	private final String host;
 	private final int port;
 
@@ -33,7 +33,7 @@ public class AgetacClient {
 	}
 
 	public Collection<VehicleDemandDTO> getVehicleDemands(long interId) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/vehicledemands");
 		try {
 			VehicleDemandsResource vehicleDemandsResource = clientResource
@@ -46,8 +46,9 @@ public class AgetacClient {
 
 	}
 
-	public VehicleDemandDTO addVehicleDemand(long interId, VehicleDemandDTO vehicleDemand) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+	public VehicleDemandDTO addVehicleDemand(long interId,
+			VehicleDemandDTO vehicleDemand) {
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/vehicledemand");
 		try {
 			VehicleDemandResource vehicleDemandResource = clientResource
@@ -61,7 +62,7 @@ public class AgetacClient {
 	}
 
 	public Collection<InterventionDTO> getInterventions() {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/interventions");
 		try {
 			InterventionsResource interventionsResource = clientResource
@@ -74,11 +75,17 @@ public class AgetacClient {
 
 	}
 
+	private static ClientResource makeClientResource(String address) {
+		ClientResource clientResource = new ClientResource(address);
+		clientResource.setEntityBuffering(true);
+		return clientResource;
+	}
+
 	public InterventionDTO createIntervention() {
 		InterventionDTO intervention = new InterventionDTO();
 
 		// Add it.
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention");
 		try {
 			InterventionResource interventionResource = clientResource
@@ -92,7 +99,7 @@ public class AgetacClient {
 	}
 
 	public MessageDTO addMessage(long interId, MessageDTO message) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/message");
 		try {
 			MessageResource messageResource = clientResource
@@ -106,7 +113,7 @@ public class AgetacClient {
 	}
 
 	public SourceDTO addSource(long interId, SourceDTO source) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/source");
 		try {
 			SourceResource sourceResource = clientResource
@@ -120,7 +127,7 @@ public class AgetacClient {
 	}
 
 	public TargetDTO addTarget(long interId, TargetDTO target) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/target");
 		try {
 			TargetResource targetResource = clientResource
@@ -134,7 +141,7 @@ public class AgetacClient {
 	}
 
 	public VictimDTO addVictim(long interId, VictimDTO victim) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/victim");
 		try {
 			VictimResource resource = clientResource.wrap(VictimResource.class);
@@ -147,7 +154,7 @@ public class AgetacClient {
 	}
 
 	public Collection<MessageDTO> getMessages(long interId) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/messages");
 		try {
 			MessagesResource resource = clientResource
@@ -160,7 +167,7 @@ public class AgetacClient {
 	}
 
 	public Collection<SourceDTO> getSources(long interId) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/sources");
 		try {
 			SourcesResource resource = clientResource
@@ -173,7 +180,7 @@ public class AgetacClient {
 	}
 
 	public Collection<TargetDTO> getTargets(long interId) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/targets");
 		try {
 			TargetsResource resource = clientResource
@@ -186,7 +193,7 @@ public class AgetacClient {
 	}
 
 	public Collection<VictimDTO> getVictims(long interId) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/victims");
 		try {
 			VictimsResource resource = clientResource
@@ -204,7 +211,7 @@ public class AgetacClient {
 
 	public void updateVictim(VictimDTO victim) {
 
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/victim/" + victim.getId());
 		try {
 			VictimResource resource = clientResource.wrap(VictimResource.class);
@@ -217,7 +224,7 @@ public class AgetacClient {
 	}
 
 	public void updateTarget(TargetDTO target) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/target/" + target.getId());
 		try {
 			TargetResource resource = clientResource.wrap(TargetResource.class);
@@ -229,7 +236,7 @@ public class AgetacClient {
 	}
 
 	public void updateSource(SourceDTO source) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/source/" + source.getId());
 		try {
 			SourceResource resource = clientResource.wrap(SourceResource.class);
@@ -242,7 +249,7 @@ public class AgetacClient {
 	}
 
 	public void deleteTarget(long id) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/target/" + id);
 		try {
 			TargetResource resource = clientResource.wrap(TargetResource.class);
@@ -255,7 +262,7 @@ public class AgetacClient {
 	}
 
 	public void deleteVictim(long id) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/victim/" + id);
 		try {
 			VictimResource resource = clientResource.wrap(VictimResource.class);
@@ -267,7 +274,7 @@ public class AgetacClient {
 	}
 
 	public void deleteSource(long id) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/source/" + id);
 		try {
 			SourceResource resource = clientResource.wrap(SourceResource.class);
@@ -279,10 +286,11 @@ public class AgetacClient {
 	}
 
 	public InterventionDTO getIntervention(long id) {
-		ClientResource clientResource = new ClientResource(getBaseAddress()
+		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + id);
 		try {
-			InterventionResource resource = clientResource.wrap(InterventionResource.class);
+			InterventionResource resource = clientResource
+					.wrap(InterventionResource.class);
 
 			return resource.retrieve();
 		} finally {
