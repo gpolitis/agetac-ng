@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Server" default="compile" basedir=".">
+<project name="Server" default="compile" basedir="..">
 
 	<property name="src.dir" location="src" />
 	<property name="bin.dir" location="bin" />

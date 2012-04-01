@@ -9,7 +9,7 @@ public class VehicleEntity {
 	    DISPO_CASERNE, ALERTE, PARTIS, SUR_LES_LIEUX, TRANSPORT_HOPITAL, DISPO_RADIO, TEMPS_DEPASSE, DEMOBILISE
 	}
 	
-	public enum VehiculeType {
+	public enum VehicleType {
 		BEA, BRS, BLS, EMB, BLSP, CAEM, CCFM, CCGC, CCGCLC, DA,
 		EPS, ESPM, FMOGP, FPT, MPR, PCM, PEVSD, SAC_PS, UTP, VPRO,
 		VRCB, VICB, VAR, VL, VLCC, VLDP, VLCGD, VLCS, VLCG, VLHR,
@@ -19,13 +19,13 @@ public class VehicleEntity {
 	
 	private String name;
 	private VehiculeState state;
-	private VehiculeType type;
+	private VehicleType type;
 	private PositionEntity position;
 	private BarrackEntity barrack;
 	
 	public VehicleEntity() {}
 	
-	public VehicleEntity(String n, VehiculeState s, VehiculeType t, PositionEntity p, BarrackEntity b) {
+	public VehicleEntity(String n, VehiculeState s, VehicleType t, PositionEntity p, BarrackEntity b) {
 		this.name = n;
 		this.state = s;
 		this.type = t;
@@ -49,11 +49,11 @@ public class VehicleEntity {
 		this.state = state;
 	}
 
-	public VehiculeType getType() {
+	public VehicleType getType() {
 		return type;
 	}
 
-	public void setType(VehiculeType type) {
+	public void setType(VehicleType type) {
 		this.type = type;
 	}
 

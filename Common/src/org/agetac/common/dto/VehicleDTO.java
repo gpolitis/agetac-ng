@@ -2,11 +2,11 @@ package org.agetac.common.dto;
 
 public class VehicleDTO {
 
-	public enum VehiculeState {
+	public enum VehicleState {
 	    DISPO_CASERNE, ALERTE, PARTIS, SUR_LES_LIEUX, TRANSPORT_HOPITAL, DISPO_RADIO, TEMPS_DEPASSE, DEMOBILISE
 	}
 	
-	public enum VehiculeType {
+	public enum VehicleType {
 		BEA, BRS, BLS, EMB, BLSP, CAEM, CCFM, CCGC, CCGCLC, DA,
 		EPS, ESPM, FMOGP, FPT, MPR, PCM, PEVSD, SAC_PS, UTP, VPRO,
 		VRCB, VICB, VAR, VL, VLCC, VLDP, VLCGD, VLCS, VLCG, VLHR,
@@ -15,14 +15,14 @@ public class VehicleDTO {
 	}
 	
 	private String name;
-	private VehiculeState state;
-	private VehiculeType type;
+	private VehicleState state;
+	private VehicleType type;
 	private PositionDTO position;
 	private BarrackDTO barrack;
 	
 	public VehicleDTO() {}
 	
-	public VehicleDTO(String n, VehiculeState s, VehiculeType t, PositionDTO p, BarrackDTO b) {
+	public VehicleDTO(String n, VehicleState s, VehicleType t, PositionDTO p, BarrackDTO b) {
 		this.name = n;
 		this.state = s;
 		this.type = t;
@@ -38,19 +38,19 @@ public class VehicleDTO {
 		this.name = name;
 	}
 
-	public VehiculeState getState() {
+	public VehicleState getState() {
 		return state;
 	}
 
-	public void setState(VehiculeState state) {
+	public void setState(VehicleState state) {
 		this.state = state;
 	}
 
-	public VehiculeType getType() {
+	public VehicleType getType() {
 		return type;
 	}
 
-	public void setType(VehiculeType type) {
+	public void setType(VehicleType type) {
 		this.type = type;
 	}
 

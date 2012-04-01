@@ -1,0 +1,3 @@
+- catch exceptions when Server receives queries and db is empty
+- make Messages immutable
+- 

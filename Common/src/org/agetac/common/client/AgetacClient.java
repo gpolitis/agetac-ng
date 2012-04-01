@@ -23,14 +23,14 @@ import org.agetac.common.resources.VictimsResource;
 import org.restlet.resource.ClientResource;
 
 public class AgetacClient {
+	
+	private final String host;
+	private final int port;
 
 	public AgetacClient(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
-
-	private final String host;
-	private final int port;
 
 	public Collection<VehicleDemandDTO> getVehicleDemands(long interId) {
 		ClientResource clientResource = new ClientResource(getBaseAddress()

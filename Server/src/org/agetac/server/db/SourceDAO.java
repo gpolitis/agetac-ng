@@ -4,7 +4,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.server.entities.SourceEntity;
-import org.agetac.server.entities.TargetEntity;
 
 public class SourceDAO {
 
@@ -22,7 +21,6 @@ public class SourceDAO {
 
 			Object idInstance = pm.newObjectIdInstance(SourceEntity.class,
 					sourceId);
-			@SuppressWarnings("unchecked")
 			SourceEntity obj = (SourceEntity) pm.getObjectById(idInstance);
 			if (obj == null)
 				return;

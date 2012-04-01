@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.jdo.annotations.PersistenceCapable;
 
-import org.agetac.server.entities.VehicleEntity.VehiculeType;
+import org.agetac.server.entities.VehicleEntity.VehicleType;
 
 @PersistenceCapable
 public class VehicleDemandEntity {
@@ -14,16 +14,16 @@ public class VehicleDemandEntity {
 	private Date timestamp;
 	private DemandState state;
 	private PositionEntity position;
-	private VehiculeType category;
+	private VehicleType category;
 	
 	private InterventionEntity intervention;
 	
-	/** default vehicule id associated with the demande is unknown (-1)*/
-	private int vehiculeId = -1;
+	/** default vehicle id associated with the demand is unknown (-1)*/
+	private int vehicleId = -1;
 	
 	public VehicleDemandEntity() {}
 	
-	public VehicleDemandEntity(DemandState state, VehiculeType cat, PositionEntity p, Date date) {
+	public VehicleDemandEntity(DemandState state, VehicleType cat, PositionEntity p, Date date) {
 		this.state = state;
 		this.category = cat;
 		this.position = p;
@@ -54,19 +54,19 @@ public class VehicleDemandEntity {
 		this.position = position;
 	}
 
-	public VehiculeType getCategory() {
+	public VehicleType getCategory() {
 		return category;
 	}
 
-	public void setCategory(VehiculeType category) {
+	public void setCategory(VehicleType category) {
 		this.category = category;
 	}
 
-	public int getVehiculeId() {
-		return vehiculeId;
+	public int getVehicleId() {
+		return vehicleId;
 	}
 
-	public void setVehiculeId(int vehiculeId) {
-		this.vehiculeId = vehiculeId;
+	public void setVehicleId(int vehicleId) {
+		this.vehicleId = vehicleId;
 	}
 }

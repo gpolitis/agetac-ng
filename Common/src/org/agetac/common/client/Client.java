@@ -5,14 +5,14 @@ import java.util.Date;
 
 import org.agetac.common.dto.*;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
-import org.agetac.common.dto.VehicleDTO.VehiculeType;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
 
 public class Client {
 
 	public static void main(String[] args) {
 
 		AgetacClient c = new AgetacClient("localhost", 8888);
-
+		
 		// Create new intervention.
 		InterventionDTO intervention = c.createIntervention();
 		long interId = intervention.getId();
@@ -111,12 +111,13 @@ public class Client {
 
 		// NOTE I would say that a message is an immutable object. Once sent to
 		// the server, it cannot be changed, nor deleted.
+		// Max: And I totally agree
 	}
 
 	private static void playWithVehicleDemands(AgetacClient c, long interId) {
 		// Add a vehicle demand.
 		VehicleDemandDTO vehicleDemand = new VehicleDemandDTO(
-				DemandState.ASKED, VehiculeType.VSAV, new PositionDTO(),
+				DemandState.ASKED, VehicleType.VSAV, new PositionDTO(),
 				new Date());
 		c.addVehicleDemand(interId, vehicleDemand);
 

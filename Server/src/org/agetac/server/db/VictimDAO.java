@@ -21,7 +21,6 @@ public class VictimDAO {
 
 			Object idInstance = pm.newObjectIdInstance(VictimEntity.class,
 					victimId);
-			@SuppressWarnings("unchecked")
 			VictimEntity obj = (VictimEntity) pm.getObjectById(idInstance);
 			if (obj == null)
 				return;

@@ -2,7 +2,7 @@ package org.agetac.common.dto;
 
 import java.util.Date;
 
-import org.agetac.common.dto.VehicleDTO.VehiculeType;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
 
 public class VehicleDemandDTO {
 
@@ -11,14 +11,14 @@ public class VehicleDemandDTO {
 	private Date timestamp;
 	private DemandState state;
 	private PositionDTO position;
-	private VehiculeType category;
+	private VehicleType category;
 	
-	/** default vehicule id associated with the demande is unknown (-1)*/
-	private int vehiculeId = -1;
+	/** default vehicle id associated with the demand is unknown (-1)*/
+	private int vehicleId = -1;
 	
 	public VehicleDemandDTO() {}
 	
-	public VehicleDemandDTO(DemandState state, VehiculeType cat, PositionDTO p, Date date) {
+	public VehicleDemandDTO(DemandState state, VehicleType cat, PositionDTO p, Date date) {
 		this.state = state;
 		this.category = cat;
 		this.position = p;
@@ -49,19 +49,19 @@ public class VehicleDemandDTO {
 		this.position = position;
 	}
 
-	public VehiculeType getCategory() {
+	public VehicleType getCategory() {
 		return category;
 	}
 
-	public void setCategory(VehiculeType category) {
+	public void setCategory(VehicleType category) {
 		this.category = category;
 	}
 
-	public int getVehiculeId() {
-		return vehiculeId;
+	public int getVehicleId() {
+		return vehicleId;
 	}
 
-	public void setVehiculeId(int vehiculeId) {
-		this.vehiculeId = vehiculeId;
+	public void setVehicleId(int vehicleId) {
+		this.vehicleId = vehicleId;
 	}
 }
