@@ -9,10 +9,12 @@ import org.agetac.common.dto.MessageDTO;
 import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.TargetDTO;
-import org.agetac.common.dto.VehicleDemandDTO;
-import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
+import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
+import org.agetac.common.dto.VictimDTO;
+import org.restlet.engine.Engine;
+import org.restlet.ext.jackson.JacksonConverter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Engine.getInstance().getRegisteredConverters().add(new JacksonConverter());
 		AgetacClient c = new AgetacClient("192.168.0.1", 8888);
 		
 		// Create new intervention.
