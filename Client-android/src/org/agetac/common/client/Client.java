@@ -1,34 +1,17 @@
-package org.agetac.activity;
+package org.agetac.common.client;
 
 import java.util.Collection;
 import java.util.Date;
 
-import org.agetac.common.client.AgetacClient;
-import org.agetac.common.dto.InterventionDTO;
-import org.agetac.common.dto.MessageDTO;
-import org.agetac.common.dto.PositionDTO;
-import org.agetac.common.dto.SourceDTO;
-import org.agetac.common.dto.TargetDTO;
-import org.agetac.common.dto.VehicleDTO.VehicleType;
-import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.*;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
-import org.agetac.common.dto.VictimDTO;
-import org.restlet.engine.Engine;
-import org.restlet.ext.jackson.JacksonConverter;
-/*import org.restlet.engine.Engine;
-import org.restlet.ext.jackson.JacksonConverter;*/
+import org.agetac.common.dto.VehicleDTO.VehicleType;
 
-import android.app.Activity;
-import android.os.Bundle;
+public class Client {
 
-public class MainActivity extends Activity {
+	public static void main(String[] args) {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		Engine.getInstance().getRegisteredConverters().add(new JacksonConverter());
-		AgetacClient c = new AgetacClient("10.0.2.2", 8888);
+		AgetacClient c = new AgetacClient("localhost", 8888);
 		
 		// Create new intervention.
 		InterventionDTO intervention = c.createIntervention();
@@ -51,8 +34,8 @@ public class MainActivity extends Activity {
 		intervention = c.getIntervention(intervention.getId());
 		System.out.println("Victims: " + intervention.getVictims().size());
 	}
-	
-	private void playWithVictims(AgetacClient c, long interId) {
+
+	private static void playWithVictims(AgetacClient c, long interId) {
 		// Add victim to intervention.
 		VictimDTO victim = c.addVictim(interId, new VictimDTO());
 
@@ -75,7 +58,7 @@ public class MainActivity extends Activity {
 		System.out.println("Victims: " + victims.size());
 	}
 
-	private void playWithTargets(AgetacClient c, long interId) {
+	private static void playWithTargets(AgetacClient c, long interId) {
 		// Add targets to intervention.
 		TargetDTO target = new TargetDTO();
 		c.addTarget(interId, target);
@@ -96,7 +79,7 @@ public class MainActivity extends Activity {
 		System.out.println("Targets: " + targets.size());
 	}
 
-	private void playWithSources(AgetacClient c, long interId) {
+	private static void playWithSources(AgetacClient c, long interId) {
 		// Add sources to intervention.
 		SourceDTO source = new SourceDTO();
 		c.addSource(interId, source);
@@ -117,9 +100,10 @@ public class MainActivity extends Activity {
 		System.out.println("Sources: " + sources.size());
 	}
 
-	private void playWithMessages(AgetacClient c, long interId) {
+	private static void playWithMessages(AgetacClient c, long interId) {
 		// Add messages to intervention.
 		MessageDTO message = new MessageDTO();
+		message.setText("Hello, world!");
 		c.addMessage(interId, message);
 
 		// List messages.
@@ -131,7 +115,7 @@ public class MainActivity extends Activity {
 		// Max: And I totally agree
 	}
 
-	private void playWithVehicleDemands(AgetacClient c, long interId) {
+	private static void playWithVehicleDemands(AgetacClient c, long interId) {
 		// Add a vehicle demand.
 		VehicleDemandDTO vehicleDemand = new VehicleDemandDTO(
 				DemandState.ASKED, VehicleType.VSAV, new PositionDTO(),
