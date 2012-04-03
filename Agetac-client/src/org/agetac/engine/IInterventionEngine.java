@@ -31,13 +31,10 @@ public interface IInterventionEngine {
 	public void editEntity(IEntity entity);
 	
 	/**
-	 * Met a jour toute l'intervention en faisant un diff
-	 * avec celle passee en parametre
-	 * Cette methode est appelee par le thread d'update
-	 * (UpdateInterventionThread)
-	 * @param inter
+	 * Effectue une mise a jour complete des donnees de l'intervention
+	 * en allant chercher toutes les informations sur le serveur
 	 */
-	public void updateIntervention(InterventionDTO inter);
+	public void updateIntervention();
 	
 	/**
 	 * Ajoute un message a l'intervention

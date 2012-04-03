@@ -1,6 +1,7 @@
 package org.agetac.engine;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Observer;
 
@@ -10,10 +11,12 @@ import org.agetac.common.dto.ActionDTO;
 import org.agetac.common.dto.IModel;
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.dto.MessageDTO;
+import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.entity.EntityHolder;
@@ -60,7 +63,6 @@ public class InterventionEngine implements IInterventionEngine {
 		interId = 0;
 		intervention = client.getIntervention(interId);
 			
-			
 		// cree les handlers pour les operations REST
 		addHandler = new AddHandler(entities, client, interId);
 		delHandler = new DeleteHandler(entities, client);
@@ -70,7 +72,7 @@ public class InterventionEngine implements IInterventionEngine {
 		// TODO changer ça pour utiliser un système PUSH afin
 		// que ce soit le serveur qui demande au client de se mettre à jour
 		// et pas le client qui flood le serveur
-		updateThread = new UpdateInterventionThread(this, client);
+		updateThread = new UpdateInterventionThread(this);
 		updateThread.start();
 	}
 	
@@ -101,19 +103,19 @@ public class InterventionEngine implements IInterventionEngine {
 	}
 	
 	@Override
-	public void updateIntervention(InterventionDTO inter) {
+	public void updateIntervention() {
 		EntityHolder holder = EntityHolder.getInstance(context);
 		
-		List<VehicleDTO> vehList = new ArrayList<VehicleDTO>(inter.getVehicles());
+		List<VehicleDTO> vehList = new ArrayList<VehicleDTO>(client.getVehicles(interId));
 		processUpdate(vehList, VehicleDTO.class);
 		
-		List<ActionDTO> actList = new ArrayList<ActionDTO>(inter.getActions());
+		List<ActionDTO> actList = new ArrayList<ActionDTO>(client.getActions(interId));
 		processUpdate(actList, ActionDTO.class);
 		
-		List<TargetDTO> cibList = new ArrayList<TargetDTO>(inter.getTargets());
+		List<TargetDTO> cibList = new ArrayList<TargetDTO>(client.getTargets(interId));
 		processUpdate(cibList, TargetDTO.class);
 		
-		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(inter.getDemands());
+		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(client.getVehicleDemands(interId));
 		for (int i=0; i<dMoyList.size(); i++) {
 			// traiter les demandes acceptées et les supprimers de la sitac
 			// pour les remplacers par des vehicules
@@ -140,15 +142,15 @@ public class InterventionEngine implements IInterventionEngine {
 			}
 		}
 		
-		List<VictimDTO> impList = new ArrayList<VictimDTO>(inter.getVictims());
+		List<VictimDTO> impList = new ArrayList<VictimDTO>(client.getVictims(interId));
 		processUpdate(impList, VictimDTO.class);
 		
-		listMessages = new ArrayList<MessageDTO>(inter.getMessages());
+		listMessages = new ArrayList<MessageDTO>(client.getMessages(interId));
 		// TODO process messages differently
 		//for(int i=0; i<messList.size(); i++) {
 		//android.util.Log.d(TAG, "mess > " +  messList.get(0).toString());}
 		
-		List<SourceDTO> srcList = new ArrayList<SourceDTO>(inter.getSources());
+		List<SourceDTO> srcList = new ArrayList<SourceDTO>(client.getSources(interId));
 		processUpdate(srcList, SourceDTO.class);
 		
 		notifyObservers();

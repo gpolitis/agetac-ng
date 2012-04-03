@@ -11,6 +11,7 @@ import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.ActionResource;
+import org.agetac.common.resources.ActionsResource;
 import org.agetac.common.resources.InterventionResource;
 import org.agetac.common.resources.InterventionsResource;
 import org.agetac.common.resources.MessageResource;
@@ -22,6 +23,7 @@ import org.agetac.common.resources.TargetsResource;
 import org.agetac.common.resources.VehicleDemandResource;
 import org.agetac.common.resources.VehicleDemandsResource;
 import org.agetac.common.resources.VehicleResource;
+import org.agetac.common.resources.VehiclesResource;
 import org.agetac.common.resources.VictimResource;
 import org.agetac.common.resources.VictimsResource;
 import org.restlet.resource.ClientResource;
@@ -185,6 +187,32 @@ public class AgetacClient {
 		try {
 			MessagesResource resource = clientResource
 					.wrap(MessagesResource.class);
+
+			return resource.retrieve();
+		} finally {
+			clientResource.release();
+		}
+	}
+	
+	public Collection<VehicleDTO> getVehicles(long interId) {
+		ClientResource clientResource = makeClientResource(getBaseAddress()
+				+ "/intervention/" + interId + "/vehicles");
+		try {
+			VehiclesResource resource = clientResource
+					.wrap(VehiclesResource.class);
+
+			return resource.retrieve();
+		} finally {
+			clientResource.release();
+		}
+	}
+	
+	public Collection<ActionDTO> getActions(long interId) {
+		ClientResource clientResource = makeClientResource(getBaseAddress()
+				+ "/intervention/" + interId + "/actions");
+		try {
+			ActionsResource resource = clientResource
+					.wrap(ActionsResource.class);
 
 			return resource.retrieve();
 		} finally {
