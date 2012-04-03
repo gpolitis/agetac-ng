@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent">
+
+	<!-- Hack permettant d'empêcher EditText d'avoir le focus au lancement -->
+
+	<LinearLayout android:layout_width="0px"
+		android:layout_height="0px" android:focusable="true"
+		android:focusableInTouchMode="true" />
+
+	<LinearLayout
+	    android:id="@+id/field_titles"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_marginRight="10px"
+	    android:orientation="vertical"
+	    android:layout_marginTop="110px" >
+
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:text="@string/je_suis" />
+
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:text="@string/je_vois" />
+
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:text="@string/je_prevois" />
+
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:text="@string/je_procede" />
+
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:text="@string/je_demande" />
+
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_marginTop="20px"
+	    android:layout_toRightOf="@id/field_titles"
+	    android:orientation="vertical"
+	    >
+
+	   <LinearLayout
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_below="@id/field_titles"
+	       android:layout_gravity="center_horizontal"
+	       android:orientation="horizontal" 
+	       android:layout_marginTop="10px"
+	        android:layout_marginRight="48px">
+     
+	 <Button
+	     android:id="@+id/buttonRetMess"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_marginBottom="30px"
+	     android:onClick="setContentView"
+	     android:text="Ecrire un message"
+	     android:width="320px" />
+	    
+ 	<Button
+ 	    android:id="@+id/buttonConsMess"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"	   
+ 	    android:onClick="setContentView"
+ 	    android:text="Consulter les messages recus"
+ 	    android:width="320px" />
+ 
+	</LinearLayout>
+	    
+		<EditText
+		    android:id="@+id/edittext_je_suis"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:gravity="top" />
+
+		<EditText
+		    android:id="@+id/edittext_je_vois"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:gravity="top" />
+
+		<EditText
+		    android:id="@+id/edittext_je_prevois"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:gravity="top" />
+
+		<EditText
+		    android:id="@+id/edittext_je_procede"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:gravity="top" />
+
+		<EditText
+		    android:id="@+id/edittext_je_demande"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.2"
+		    android:gravity="top" />
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@id/field_titles"
+		    android:layout_gravity="center_horizontal"
+		    android:orientation="horizontal"
+		     android:layout_marginRight="48px" >
+
+			<Button
+			    android:id="@+id/buttonEnvoyer"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="30px"
+			    android:text="Envoyer" />
+
+			<Button
+			    android:id="@+id/buttonAnnuler"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="30px"
+			    android:layout_marginTop="30px"
+			    android:text="Annuler" />
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+
+</RelativeLayout>

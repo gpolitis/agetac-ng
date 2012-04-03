@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal">
+    
+  <LinearLayout
+      android:id="@+id/sitac_actions_panel"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:layout_weight="1">
+      
+    <Button
+      android:id="@+id/addEntity"
+      android:layout_width="wrap_content"  
+      android:layout_height="wrap_content"
+      android:text="Ajouter entitée"/>
+    
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+        
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre d'entitée(s) présente(s): "/>
+      
+      <TextView
+        android:id="@+id/nbCurrentEntity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+    
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre d'entitée(s) en attente(s): "/>
+      
+      <TextView
+        android:id="@+id/nbFuturEntity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      
+    </LinearLayout>
+      
+  </LinearLayout>
+  
+  <ListView
+    android:id="@+id/vehicules_listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"/>
+    
+</LinearLayout>

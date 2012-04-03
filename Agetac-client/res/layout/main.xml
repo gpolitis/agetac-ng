@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+  <!-- Hack permettant d'empêcher loginField d'avoir le focus au lancement -->
+  <LinearLayout
+    android:focusable="true" android:focusableInTouchMode="true"
+    android:layout_width="0px" android:layout_height="0px"/>
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true"
+	    android:orientation="vertical">
+		    
+	    <EditText
+	    	android:id="@+id/loginField"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="textNoSuggestions"
+	        android:imeOptions="actionNext"
+	        android:hint="@string/login" />
+	    
+	    <EditText
+	    	android:id="@+id/passField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:inputType="textPassword|textNoSuggestions"
+	        android:password="true"
+	        android:imeOptions="actionGo"
+	        android:hint="@string/password" />
+	    
+	    <Button
+	        android:id="@+id/connectBtn"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/connection"/>
+	    
+	</LinearLayout>
+	
+</RelativeLayout>

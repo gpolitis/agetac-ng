@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+
+    <string name="host">192.168.0.1</string>
+    <string name="port">8888</string>
+    <string name="contextRoot">agetacserver</string>
+    
+    <string name="app_name">Agetac-client</string>
+    <string name="login">Identifiant</string>
+    <string name="password">Mot de passe</string>
+    <string name="connection">Connexion</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="annuler">Annuler</string>
+    <string name="edit">Modifier</string>
+    <string name="delete">Supprimer</string>
+    <string name="save">Enregistrer</string>
+    <string name="cancel">Annuler</string>
+
+    <!-- STRINGS OPENEDMENU FRAGMENT -->
+    <string name="dangers">Dangers</string>
+    <string name="cibles">Cibles</string>
+    <string name="off_sitac">Position à définir</string>
+    <string name="actions">Actions</string>
+    <!-- #END# STRING OPENEDMENU FRAGMENT -->
+
+    <string name="progress_title_connection">Veuillez patienter</string>
+    <string name="progress_connection">Connexion...</string>
+    <string name="progress_loading">Chargement...</string>
+    <string name="dialog_title_confirmexit">Quitter</string>
+    <string name="dialog_confirmexit">Êtes-vous sûr de vouloir vous déconnecter ?</string>
+    <string name="dialog_title_vehicule">Confirmer Action</string>
+    <string name="dialog_deletevehicule">Voulez-vous supprimer ce véhicule ?</string>
+    <string name="dialog_title_deletevehicule">Confirmer suppression</string>
+    <string name="dialog_vehicule_supprimer">Supprimer</string>
+    <string name="dialog_vehicule_gerer_gh">Gerer GH</string>
+    <string name="dialog_update_gh_ou_supprimer_vehicule">Voulez-vous mettre à jour les GH ou supprimer ce véhicule ?</string>
+    <string name="dialog_title_edit_item">Modifier: %1s</string>
+    <string name="soeic">SOEIC</string>
+    <string name="sitac">SITAC</string>
+    <string name="moyens">Moyens</string>
+    <string name="messages">Messages</string>
+    <string name="crm">CRM</string>
+    <string name="je_suis">Je suis</string>
+    <string name="je_vois">Je vois</string>
+    <string name="je_prevois">Je prévois</string>
+    <string name="je_procede">Je procède</string>
+    <string name="je_demande">Je demande</string>
+    <string name="Message">Message</string>
+    <string name="empty_text"></string>
+    <string name="menu_img_desc">Pictogramme correspondant à un moyen ou une action</string>
+
+    <!-- STRINGS MOYENS ACTIVITY -->
+    <string name="demande_moyen">Je demande</string>
+    <!-- pour l'entete de la vue -->
+    <string name="vehicule_type">Type de moyen</string>
+    <string name="vehicule_caserne">Caserne</string>
+    <string name="vehicule_etat">Etat</string>
+    <string name="vehicule_gh_arrivee">gh Arrivee</string>
+    <string name="vehicule_gh_retour">gh Retour</string>
+    <string name="vehicule_gh_demande">gh Alerte</string>
+    <string name="imageContentDescription">Image representant moyen</string>
+    <string name="attaque">Attaque du feu</string>
+    <string name="alim">Alimentation en eau</string>
+    <string name="secours">Secours aux personnes</string>
+    <string name="FPT">FPT</string>
+    <string name="CCGC">CCGC</string>
+    <string name="VSAV">VSAV</string>
+    <string name="item2">item2</string>
+    <string name="unknown">Inconnue</string>
+
+    <!-- fin entete -->
+    <!-- #END# STRING MOYENS ACTIVITY -->
+
+
+</resources>

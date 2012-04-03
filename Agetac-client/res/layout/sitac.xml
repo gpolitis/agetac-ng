@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+    
+	<org.osmdroid.views.MapView
+	  android:id="@+id/mapview"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent"/>
+	
+	<LinearLayout
+	    android:id="@+id/menu_anchor"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"/>
+	      
+  <fragment
+    android:name="org.agetac.fragment.OpenedMenuFragment"
+    android:id="@+id/fragment_menu_opened"
+    android:layout_width="250dp"
+    android:layout_height="match_parent"/>
+  
+  <fragment
+    android:name="org.agetac.fragment.HiddenMenuFragment"
+    android:id="@+id/fragment_menu_hidden"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"/>
+    
+</RelativeLayout>

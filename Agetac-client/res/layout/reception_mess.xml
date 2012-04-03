@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  
+  <!-- Hack permettant d'empêcher EditText d'avoir le focus au lancement -->
+  <LinearLayout
+    android:focusable="true" android:focusableInTouchMode="true"
+    android:layout_width="0px" android:layout_height="0px"/>
+
+  <LinearLayout
+    android:id="@+id/field_titles"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10px"
+    android:orientation="vertical">
+    
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/field_titles"
+	    android:layout_gravity="center_horizontal"
+	    android:orientation="horizontal" >
+          
+ <Button
+     android:id="@+id/retMessAmb"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="30px"
+     android:onClick="setContentView"
+     android:text="Revenir au message d&apos;ambiance"
+     android:width="320px" />
+ 
+ <Button
+     android:id="@+id/buttonRetMess"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginBottom="30px"
+     android:layout_marginTop="30px"
+     android:onClick="setContentView"
+     android:text="Ecrire un message"
+     android:width="320px" />
+
+	</LinearLayout>
+	 
+  
+ <ListView
+        android:id="@+id/listMess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingTop="36dp"
+        android:numColumns="auto_fit"/>
+	
+	
+	
+	  </LinearLayout>
+</RelativeLayout>

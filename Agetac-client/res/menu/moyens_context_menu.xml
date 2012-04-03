@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item android:id="@+id/menu_attaque" android:title="@string/attaque">
+		<menu android:id="@+id/submenu_0">
+			<item android:id="@+id/FPT" android:title="FPT" />
+
+			<item android:id="@+id/item2" android:title="item2" />
+		</menu>
+	</item>
+
+	<item android:id="@+id/menu_alim" android:title="@string/alim" >
+			<menu android:id="@+id/submenu_1">
+			<item android:id="@+id/CCGC" android:title="CCGC" />
+
+			<item android:id="@+id/item2" android:title="item2" />
+		</menu>
+	</item>
+
+	<item android:id="@+id/menu_secours" android:title="@string/secours">
+		<menu android:id="@+id/submenu_3">
+			<item android:id="@+id/VSAV" android:title="VSAV" />
+
+			<item android:id="@+id/item2" android:title="item2" />
+		</menu>
+	</item>
+</menu>

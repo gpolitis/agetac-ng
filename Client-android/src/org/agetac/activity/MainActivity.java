@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		Engine.getInstance().getRegisteredConverters().add(new JacksonConverter());
-		AgetacClient c = new AgetacClient("10.0.2.2", 8888);
+		AgetacClient c = new AgetacClient("192.168.0.1", 8888);
 		
 		// Create new intervention.
 		InterventionDTO intervention = c.createIntervention();

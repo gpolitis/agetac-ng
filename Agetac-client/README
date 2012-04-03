@@ -1,0 +1,48 @@
+Actuellement la partie client ressemble plus à une POC améliorée qu'à
+Agetac à proprement parlé. J'entends par là, que l'onglet SOEICActivity par
+exemple ne sert absolument pas à ce qu'il devrait servir en l'état. Je
+garde juste ces portions de code à des fins de "démonstration". L'idée
+étant de travailler sur une base MVC fonctionnelle et d'implémenter les
+"vraies" fonctionnalités d'Agetac en fonction des itérations.
+
+NB: N'hésitez surtout pas à faire des branches pour vous familiariser avec
+Android. La marche à suivre :
+
+$ git checkout -b nom_de_votre_branche
+(ça aura pour effet de copier l'intégralité de la branche principale dans
+une sous-branche, dans laquelle vous pourrez faire toutes les modifications
+que vous voulez sans pour autant 'créer de nouveaux bugs' sur l'existant.)
+
+Puis grâce à la magie GIT, si dans votre branche vous avez améliorez
+l'existant (personne n'en doute!) et bien en quelques lignes vous pouvez
+"fusionner" (merge) votre travail avec la branche principale. La marche à
+suivre :
+
+$ git add -u
+(ajouter les fichiers que vous avez modifiez au futur commit)
+
+$ git status
+(ça va vous lister ce que vous avez ajouté dans votre branche, oui il faut
+ajouter en plus les fichiers qui n'étaient pas là au départ donc regardez
+leurs noms et fait un autre add)
+
+Exemple:
+$ git add src
+(là vous n'auriez fait des changements que dans src/)
+
+$ git commit -m "Le message correspondant aux changements que vous avez
+apportez à Agetac"
+
+$ git checkout master
+(vous revenez dans le branche principale afin de fusioner votre travail et
+l'existant)
+
+$ git merge nom_de_votre_branche
+(fuuuuusiooon)
+
+Et voilà, vous avez apportez votre pierre à l'édifice. One good point.
+Il ne vous reste plus qu'à push. La marche à suivre:
+
+$ git push origin master
+
+Iteration++ =)
