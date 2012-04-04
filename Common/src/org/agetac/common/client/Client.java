@@ -1,16 +1,13 @@
 package org.agetac.common.client;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.dto.MessageDTO;
 import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.TargetDTO;
-import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
@@ -40,7 +37,7 @@ public class Client {
 
 		playWithVictims(c, interId);
 		
-		diediedie(c, interId);
+		testVehicleDemandListSizes(c, interId);
 
 		intervention = c.getIntervention(intervention.getId());
 		System.out.println("Victims: " + intervention.getVictims().size());
@@ -139,12 +136,7 @@ public class Client {
 		System.out.println("Vehicle demands: " + vehicleDemands.size());
 	}
 	
-	/**
-	 * SUPPOSED NOT TO WORK
-	 * @param c
-	 * @param interId
-	 */
-	private static void diediedie(AgetacClient c, long interId) {
+	private static void testVehicleDemandListSizes(AgetacClient c, long interId) {
 		InterventionDTO i = c.getIntervention(interId);
 		
 		VehicleDemandDTO vd = new VehicleDemandDTO();
@@ -153,10 +145,6 @@ public class Client {
 		Collection<VehicleDemandDTO> vListFromInter = i.getDemands();
 		Collection<VehicleDemandDTO> vListFromClient = c.getVehicleDemands(interId);
 		
-		if (vListFromInter.size() != vListFromClient.size()) {
-			System.out.println("Something went wrong...");
-		} else {
-			System.out.println("Ok let me stfu everything is fine");
-		}
+		assert (vListFromInter.size() != vListFromClient.size());
 	}
 }
